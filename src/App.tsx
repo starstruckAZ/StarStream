@@ -100,7 +100,7 @@ const App = () => {
     { id: 'desert', title: 'THE SILENT WASTES', poster: '/assets/images/branding/silent_wastes.png', video: '', isComingSoon: true },
     { id: 'cf', title: 'CHRONOFLEX: SYNCHRONIZE', poster: '/assets/images/branding/chronoflex.png', video: '/assets/videos/chronoflex_ad.mp4' },
     { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
-    { id: '360_v2', title: 'NIRAJ UNFILTERED', poster: '/assets/images/branding/niraj_unfiltered.png', video: '/assets/videos/wanp_trailer.mp4' },
+    { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/branding/niraj_unfiltered.png', video: '/assets/videos/wanp_trailer.mp4' },
   ];
 
   if (isLoading) {
@@ -118,6 +118,7 @@ const App = () => {
         <img
           src="/assets/images/starstream_logo_new.png"
           alt="STARSTREAM"
+          className="loading-logo"
           style={{ width: '400px', animation: 'scaleUp 3s cubic-bezier(0.16, 1, 0.3, 1), glitch 0.2s 3.5s infinite' }}
         />
         <div style={{
@@ -144,6 +145,11 @@ const App = () => {
           @keyframes scaleUp {
             0% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
             100% { transform: scale(1); opacity: 1; filter: blur(0); }
+          }
+          @media (max-width: 768px) {
+            .loading-logo {
+              width: 250px !important;
+            }
           }
         `}</style>
       </div>
@@ -206,7 +212,7 @@ const App = () => {
         />
 
         {/* Dynamation Recruitment Ad */}
-        <div style={{
+        <div className="recruitment-ad" style={{
           margin: '100px 4%',
           padding: '80px',
           background: 'rgba(10, 10, 10, 0.8)',
@@ -232,7 +238,7 @@ const App = () => {
           }}></div>
 
           <div style={{ flex: 1, position: 'relative', zIndex: 5 }}>
-            <h2 style={{
+            <h2 className="ad-title" style={{
               color: 'var(--primary-color)',
               fontSize: '3rem',
               fontWeight: 900,
@@ -242,14 +248,14 @@ const App = () => {
               textShadow: '0 0 20px rgba(0, 243, 255, 0.4)'
             }}>DYNAMATION</h2>
             <div style={{ height: '2px', width: '60px', backgroundColor: 'var(--primary-color)', marginBottom: '30px' }}></div>
-            <p style={{ fontSize: '1.4rem', color: '#fff', fontStyle: 'italic', marginBottom: '15px', fontWeight: 300 }}>
+            <p className="ad-slogan" style={{ fontSize: '1.4rem', color: '#fff', fontStyle: 'italic', marginBottom: '15px', fontWeight: 300 }}>
               "We don't just study quantum reality. <br />We build it."
             </p>
-            <p style={{ color: '#888', marginBottom: '40px', maxWidth: '500px', lineHeight: 1.6 }}>
+            <p className="ad-desc" style={{ color: '#888', marginBottom: '40px', maxWidth: '500px', lineHeight: 1.6 }}>
               Eligible agents are needed for the Wellness City initiative.
               Join the team that turns possibility into progress.
             </p>
-            <button style={{
+            <button className="ad-btn" style={{
               padding: '16px 50px',
               backgroundColor: 'var(--primary-color)',
               color: '#000',
@@ -264,7 +270,7 @@ const App = () => {
             }}>Join the Core</button>
           </div>
 
-          <div style={{
+          <div className="ad-video-container" style={{
             width: '550px',
             height: '310px',
             backgroundColor: '#000',
@@ -291,7 +297,7 @@ const App = () => {
         onClose={() => setSelectedItem(null)}
       />
 
-      <footer style={{
+      <footer className="starstream-footer" style={{
         padding: '120px 4% 80px',
         borderTop: '1px solid rgba(255,255,255,0.05)',
         marginTop: '100px',
@@ -301,7 +307,7 @@ const App = () => {
         flexDirection: 'column',
         gap: '60px'
       }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
+        <div className="footer-links-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
           <div className="footer-link">Audio Description</div>
           <div className="footer-link">Help Center</div>
           <div className="footer-link">Gift Cards</div>
@@ -315,7 +321,7 @@ const App = () => {
           <div className="footer-link">Corporate Information</div>
           <div className="footer-link">Contact Us</div>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', opacity: 0.6 }}>
+        <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', opacity: 0.6 }}>
           <div style={{ border: '1px solid #444', padding: '10px 20px', fontSize: '0.8rem', cursor: 'pointer' }}>Service Code: 882-XR</div>
           <div style={{ textAlign: 'right' }}>
             © 2026 Starstream Entertainment LLC. <br />
@@ -330,6 +336,46 @@ const App = () => {
           50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
         }
         .footer-link:hover { color: #fff; cursor: pointer; }
+        @media (max-width: 768px) {
+          .recruitment-ad {
+            flex-direction: column !important;
+            padding: 40px 20px !important;
+            gap: 40px !important;
+            margin: 60px 4% !important;
+            text-align: center !important;
+          }
+          .ad-title {
+            font-size: 2rem !important;
+            letter-spacing: 4px !important;
+          }
+          .ad-slogan {
+            font-size: 1.1rem !important;
+          }
+          .ad-desc {
+            font-size: 0.9rem !important;
+            margin-bottom: 30px !important;
+          }
+          .ad-video-container {
+            width: 100% !important;
+            height: 200px !important;
+          }
+          .footer-links-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+          }
+          .footer-bottom {
+            flex-direction: column !important;
+            gap: 30px !important;
+            text-align: center !important;
+          }
+          .footer-bottom > div {
+            text-align: center !important;
+          }
+          .starstream-footer {
+            padding: 60px 4% 40px !important;
+            margin-top: 60px !important;
+          }
+        }
       `}</style>
     </div>
   );

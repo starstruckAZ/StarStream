@@ -16,8 +16,8 @@ interface PosterRowProps {
 
 const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
     return (
-        <div style={{ padding: '30px 0 40px 4%' }}>
-            <h3 style={{
+        <div className="poster-row-container" style={{ padding: '30px 0 40px 4%' }}>
+            <h3 className="poster-row-title" style={{
                 fontSize: '1.6rem',
                 marginBottom: '20px',
                 fontWeight: 800,
@@ -35,7 +35,7 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
                     marginRight: '4%'
                 }}></span>
             </h3>
-            <div style={{
+            <div className="poster-scroll-container" style={{
                 display: 'flex',
                 gap: '12px',
                 overflowX: 'auto',
@@ -47,6 +47,17 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
                     <Poster key={item.id} item={item} onSelect={onSelect} />
                 ))}
             </div>
+            <style>{`
+                @media (max-width: 768px) {
+                    .poster-row-container {
+                        padding: 20px 0 30px 4% !important;
+                    }
+                    .poster-row-title {
+                        font-size: 1.1rem !important;
+                        margin-bottom: 15px !important;
+                    }
+                }
+            `}</style>
         </div>
     );
 };
@@ -59,6 +70,7 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
             onClick={() => !item.isComingSoon && onSelect(item)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            className="poster-card"
             style={{
                 flex: '0 0 auto',
                 width: '320px',
@@ -88,7 +100,7 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
             />
 
             {/* Title Overlay / Branded Logo Layer */}
-            <div style={{
+            <div className="poster-title-overlay" style={{
                 position: 'absolute',
                 bottom: 0,
                 width: '100%',
@@ -115,7 +127,7 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
 
             {/* Hover Overlay */}
             {isHovered && (
-                <div style={{
+                <div className="poster-hover-overlay" style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -168,11 +180,20 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
             )}
 
             <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @media (max-width: 768px) {
+                    .poster-card {
+                        width: 220px !important;
+                        transform: none !important;
+                    }
+                    .poster-title-overlay div {
+                        font-size: 0.8rem !important;
+                    }
+                }
+            `}</style>
         </div>
     );
 };

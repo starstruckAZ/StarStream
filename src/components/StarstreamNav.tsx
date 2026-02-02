@@ -12,7 +12,7 @@ const StarstreamNav = () => {
   }, []);
 
   return (
-    <nav style={{
+    <nav className="starstream-nav" style={{
       position: 'fixed',
       top: 0,
       width: '100%',
@@ -29,10 +29,11 @@ const StarstreamNav = () => {
       backdropFilter: isScrolled ? 'blur(20px)' : 'none',
       borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '50px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
         <img
           src="/assets/images/starstream_logo_new.png"
           alt="STARSTREAM"
+          className="nav-logo"
           style={{
             height: '40px',
             cursor: 'pointer',
@@ -40,18 +41,18 @@ const StarstreamNav = () => {
           }}
         />
 
-        <ul style={{ display: 'flex', gap: '25px', fontSize: '0.9rem', fontWeight: 500 }}>
+        <ul className="nav-links" style={{ display: 'flex', gap: '25px', fontSize: '0.9rem', fontWeight: 500 }}>
           <li className="nav-link">Home</li>
-          <li className="nav-link">Originals</li>
+          <li className="nav-link hide-mobile">Originals</li>
           <li className="nav-link">Catalog</li>
-          <li className="nav-link">New & Popular</li>
-          <li className="nav-link">My List</li>
+          <li className="nav-link hide-mobile">New & Popular</li>
+          <li className="nav-link hide-mobile">My List</li>
         </ul>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
-        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }}>🔍</div>
-        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }}>🔔</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }} className="hide-mobile">🔍</div>
+        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }} className="hide-mobile">🔔</div>
         <div style={{
           width: '35px',
           height: '35px',
@@ -74,6 +75,7 @@ const StarstreamNav = () => {
           opacity: 0.7;
           transition: all 0.3s ease;
           position: relative;
+          white-space: nowrap;
         }
         .nav-link:hover {
           opacity: 1;
@@ -90,6 +92,21 @@ const StarstreamNav = () => {
         }
         .nav-link:hover:after {
           width: 100%;
+        }
+        @media (max-width: 768px) {
+          .nav-logo {
+            height: 25px !important;
+          }
+          .nav-links {
+            gap: 15px !important;
+            font-size: 0.8rem !important;
+          }
+          .hide-mobile {
+            display: none !important;
+          }
+          .starstream-nav {
+            height: 60px !important;
+          }
         }
       `}</style>
     </nav>
