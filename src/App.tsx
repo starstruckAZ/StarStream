@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import MuxPlayer from '@mux/mux-player-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
@@ -22,15 +23,13 @@ const MovieCatalog = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 4000);
-
     const isUnlocked = localStorage.getItem('starstream_directors_cut_unlocked') === 'true';
     setCollectionUnlocked(isUnlocked);
-
-    return () => clearTimeout(timer);
   }, []);
+
+  const handleIntroEnd = () => {
+    setIsLoading(false);
+  };
 
   const handleUnlockCollection = async (price: number) => {
     console.log(`Initializing backend checkout for $${price}...`);
@@ -147,6 +146,47 @@ const MovieCatalog = () => {
     { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
     { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/branding/niraj_unfiltered.png', video: '/assets/videos/wanp_trailer.mp4' },
   ];
+
+  if (isLoading) {
+    return (
+      <div style={{
+        height: '100vh',
+        width: '100vw',
+        backgroundColor: '#000',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 9999
+      }}>
+        <MuxPlayer
+          playbackId="HvZWj01likzFkvGMDtIeZhWOOR3TDWmxeKV7txlmXbAk"
+          autoPlay
+          muted={false}
+          onEnded={handleIntroEnd}
+          style={{ width: '100%', height: '100%' }}
+          primaryColor="#00F3FF"
+          metadataVideoTitle="Starstream Intro"
+        />
+        <button
+          onClick={handleIntroEnd}
+          style={{
+            position: 'absolute',
+            bottom: '40px',
+            right: '40px',
+            color: 'rgba(255,255,255,0.3)',
+            fontSize: '0.8rem',
+            letterSpacing: '2px',
+            zIndex: 10000
+          }}>
+          SKIP INTRO
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
