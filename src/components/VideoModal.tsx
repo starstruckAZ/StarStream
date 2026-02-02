@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import MuxPlayer from '@mux/mux-player-react';
 import Paywall from './Paywall';
 
 interface ContentItem {
@@ -15,9 +15,10 @@ interface VideoModalProps {
 }
 
 const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClose }) => {
-    const videoRef = useRef<HTMLVideoElement>(null);
-
     if (!item) return null;
+
+    // Determine if it's a Mux ID or a local path
+    const isMuxVideo = item.video && !item.video.includes('/') && item.video.length > 10;
 
     return (
         <div style={{
@@ -45,8 +46,12 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
                     background: 'none',
                     border: 'none',
                     color: '#fff',
-                    cursor: 'pointer'
-                }}>✕</button>
+                    cursor: 'pointer',
+                    transition: 'opacity 0.3s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '0.7'}
+            >✕</button>
 
             {isLocked ? (
                 <Paywall
@@ -55,13 +60,27 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
                     onClose={onClose}
                 />
             ) : (
-                <video
-                    ref={videoRef}
-                    src={item.video || '/assets/videos/wanp_trailer.mp4'}
-                    controls
-                    autoPlay
-                    style={{ width: '100%', maxHeight: '90vh' }}
-                />
+                <div style={{ width: '100%', maxWidth: '1200px', height: 'auto', aspectRatio: '16/9' }}>
+                    {isMuxVideo ? (
+                        <MuxPlayer
+                            playbackId={item.video}
+                            metadataVideoTitle={item.title}
+                            metadataViewerUserId="StarstreamUser"
+                            primaryColor="#00F3FF"
+                            secondaryColor="#000000"
+                            accentColor="#00F3FF"
+                            autoPlay
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    ) : (
+                        <video
+                            src={item.video || '/assets/videos/wanp_trailer.mp4'}
+                            controls
+                            autoPlay
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    )}
+                </div>
             )}
 
             {/* Decorative glitch scanlines */}
