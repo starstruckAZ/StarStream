@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
 import PosterRow from './components/PosterRow';
 import VideoModal from './components/VideoModal';
+import Success from './pages/Success';
+import Cancel from './pages/Cancel';
 
 interface ContentItem {
   id: string;
@@ -13,13 +16,13 @@ interface ContentItem {
   isComingSoon?: boolean;
 }
 
-const App = () => {
+const MovieCatalog = () => {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [collectionUnlocked, setCollectionUnlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Stripe Live Publishable Key - Now using environment variables for security
+  // STRIPE_PUBLISHABLE_KEY from env
   const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder";
 
   useEffect(() => {
@@ -27,7 +30,6 @@ const App = () => {
       setIsLoading(false);
     }, 4000);
 
-    // Check if collection is already unlocked from previous session
     const isUnlocked = localStorage.getItem('starstream_directors_cut_unlocked') === 'true';
     setCollectionUnlocked(isUnlocked);
 
@@ -35,22 +37,41 @@ const App = () => {
   }, []);
 
   const handleUnlockCollection = async (price: number) => {
-    console.log(`Initializing live checkout for $${price}...`);
+    console.log(`Initializing backend checkout for $${price}...`);
 
     try {
       const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
-      if (stripe) {
-        console.log("Stripe live initialized.");
+      if (!stripe) throw new Error("Stripe failed to initialize.");
+
+      // Call our Airtight Secure Netlify Function
+      const response = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          price,
+          itemTitle: selectedItem?.title || "Jaron Ikner Collection"
+        }),
+      });
+
+      const session = await response.json();
+
+      if (session.error) {
+        throw new Error(session.error);
       }
-    } catch (e) {
-      console.error("Stripe initialization failed", e);
+
+      // Redirect to secure Stripe-hosted Checkout
+      // Casting to any to avoid type definition ambiguity between backend and frontend stripe packages
+      const result = await (stripe as any).redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        alert(result.error.message);
+      }
+    } catch (e: any) {
+      console.error("Payment initialization failed", e);
+      alert(`Security Error: ${e.message}. \n\nNote: If you are testing locally, make sure you are running 'netlify dev' to support backend functions.`);
     }
-
-    // Since we don't have a backend to create sessions yet, we keep the simulation for UI flow
-    alert(`Stripe Live Initialized with your key. \n\nIn a production environment with a backend, we would now redirect to your secure Stripe Checkout page for $${price}. For this demo, we'll unlock the content now!`);
-
-    localStorage.setItem('starstream_directors_cut_unlocked', 'true');
-    setCollectionUnlocked(true);
   };
 
   const isItemLocked = (itemId: string) => {
@@ -136,59 +157,6 @@ const App = () => {
     { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
     { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/branding/niraj_unfiltered.png', video: '/assets/videos/wanp_trailer.mp4' },
   ];
-
-  if (isLoading) {
-    return (
-      <div style={{
-        height: '100vh',
-        width: '100%',
-        backgroundColor: '#000',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '40px'
-      }}>
-        <img
-          src="/assets/images/starstream_logo_new.png"
-          alt="STARSTREAM"
-          className="loading-logo"
-          style={{ width: '400px', animation: 'scaleUp 3s cubic-bezier(0.16, 1, 0.3, 1), glitch 0.2s 3.5s infinite' }}
-        />
-        <div style={{
-          width: '300px',
-          height: '1px',
-          backgroundColor: '#222',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            position: 'absolute',
-            height: '100%',
-            width: '100px',
-            backgroundColor: 'var(--primary-color)',
-            animation: 'loading 2.5s infinite cubic-bezier(0.65, 0, 0.35, 1)'
-          }}></div>
-        </div>
-        <audio ref={audioRef} src="/assets/audio/starstream_intro.mp3" />
-        <style>{`
-          @keyframes loading {
-            0% { left: -100px }
-            100% { left: 300px }
-          }
-          @keyframes scaleUp {
-            0% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
-            100% { transform: scale(1); opacity: 1; filter: blur(0); }
-          }
-          @media (max-width: 768px) {
-            .loading-logo {
-              width: 250px !important;
-            }
-          }
-        `}</style>
-      </div>
-    );
-  }
 
   return (
     <div style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
@@ -414,6 +382,18 @@ const App = () => {
         }
       `}</style>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MovieCatalog />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+      </Routes>
+    </Router>
   );
 };
 
