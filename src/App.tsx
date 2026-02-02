@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
 import PosterRow from './components/PosterRow';
@@ -15,14 +16,47 @@ interface ContentItem {
 const App = () => {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [collectionUnlocked, setCollectionUnlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Stripe Live Publishable Key
+  const STRIPE_PUBLISHABLE_KEY = "pk_live_51SkpZDAwHh5GV3tKcnHEeypu1PfD8AFeqwlPWg9yPtIcJuylUzI0NnV2Re2GCVcHcenwaaOoluw5riiMuDTg6uJF00FRr0ym4x";
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 4000);
+
+    // Check if collection is already unlocked from previous session
+    const isUnlocked = localStorage.getItem('starstream_directors_cut_unlocked') === 'true';
+    setCollectionUnlocked(isUnlocked);
+
     return () => clearTimeout(timer);
   }, []);
+
+  const handleUnlockCollection = async (price: number) => {
+    console.log(`Initializing live checkout for $${price}...`);
+
+    try {
+      const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
+      if (stripe) {
+        console.log("Stripe live initialized.");
+      }
+    } catch (e) {
+      console.error("Stripe initialization failed", e);
+    }
+
+    // Since we don't have a backend to create sessions yet, we keep the simulation for UI flow
+    alert(`Stripe Live Initialized with your key. \n\nIn a production environment with a backend, we would now redirect to your secure Stripe Checkout page for $${price}. For this demo, we'll unlock the content now!`);
+
+    localStorage.setItem('starstream_directors_cut_unlocked', 'true');
+    setCollectionUnlocked(true);
+  };
+
+  const isItemLocked = (itemId: string) => {
+    const premiumIds = ['madness', 'tfp', 'mental', 'paradox'];
+    return premiumIds.includes(itemId) && !collectionUnlocked;
+  };
 
   useEffect(() => {
     if (!isLoading && audioRef.current) {
@@ -294,6 +328,8 @@ const App = () => {
 
       <VideoModal
         item={selectedItem}
+        isLocked={selectedItem ? isItemLocked(selectedItem.id) : false}
+        onUnlock={handleUnlockCollection}
         onClose={() => setSelectedItem(null)}
       />
 

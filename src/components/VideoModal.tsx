@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Paywall from './Paywall';
 
 interface ContentItem {
     id: string;
@@ -8,10 +9,12 @@ interface ContentItem {
 
 interface VideoModalProps {
     item: ContentItem | null;
+    isLocked: boolean;
+    onUnlock: (price: number) => void;
     onClose: () => void;
 }
 
-const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
+const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClose }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     if (!item) return null;
@@ -45,13 +48,21 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, onClose }) => {
                     cursor: 'pointer'
                 }}>✕</button>
 
-            <video
-                ref={videoRef}
-                src={item.video || '/assets/videos/wanp_trailer.mp4'}
-                controls
-                autoPlay
-                style={{ width: '100%', maxHeight: '90vh' }}
-            />
+            {isLocked ? (
+                <Paywall
+                    itemTitle={item.title}
+                    onUnlock={onUnlock}
+                    onClose={onClose}
+                />
+            ) : (
+                <video
+                    ref={videoRef}
+                    src={item.video || '/assets/videos/wanp_trailer.mp4'}
+                    controls
+                    autoPlay
+                    style={{ width: '100%', maxHeight: '90vh' }}
+                />
+            )}
 
             {/* Decorative glitch scanlines */}
             <div style={{
