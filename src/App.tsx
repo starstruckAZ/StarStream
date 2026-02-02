@@ -163,7 +163,7 @@ const MovieCatalog = () => {
         zIndex: 9999
       }}>
         <MuxPlayer
-          playbackId="HvZWj01likzFkvGMDtIeZhWOOR3TDWmxeKV7txlmXbAk"
+          playbackId="eseRbzw3vCBgD37CRk62Jux02KoKO00UJDqCNnWOKxPwM"
           autoPlay
           muted={false}
           onEnded={handleIntroEnd}
