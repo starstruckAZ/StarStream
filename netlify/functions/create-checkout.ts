@@ -40,8 +40,8 @@ const handler: Handler = async (event) => {
             ],
             mode: 'payment',
             // In a real app, these would be your actual success/cancel pages
-            success_url: `${process.env.URL || 'http://localhost:5173'}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.URL || 'http://localhost:5173'}/cancel`,
+            success_url: `${process.env.SITE_URL || 'http://localhost:5173'}/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.SITE_URL || 'http://localhost:5173'}/cancel`,
         });
 
         return {
