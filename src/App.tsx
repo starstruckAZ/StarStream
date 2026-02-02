@@ -21,9 +21,6 @@ const MovieCatalog = () => {
   const [collectionUnlocked, setCollectionUnlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // STRIPE_PUBLISHABLE_KEY from env
-  const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder";
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -39,9 +36,6 @@ const MovieCatalog = () => {
     console.log(`Initializing backend checkout for $${price}...`);
 
     try {
-      const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
-      if (!stripe) throw new Error("Stripe failed to initialize.");
-
       // Call our Airtight Secure Netlify Function
       const response = await fetch('/.netlify/functions/create-checkout', {
         method: 'POST',
