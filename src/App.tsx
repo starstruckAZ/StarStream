@@ -19,8 +19,8 @@ const App = () => {
   const [collectionUnlocked, setCollectionUnlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Stripe Live Publishable Key
-  const STRIPE_PUBLISHABLE_KEY = "pk_live_51SkpZDAwHh5GV3tKcnHEeypu1PfD8AFeqwlPWg9yPtIcJuylUzI0NnV2Re2GCVcHcenwaaOoluw5riiMuDTg6uJF00FRr0ym4x";
+  // Stripe Live Publishable Key - Now using environment variables for security
+  const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder";
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -29,3 +29,7 @@ public/assets/videos/demon_time_trailer_full.mp4
 public/assets/videos/wanp_trailer.mp4
 public/assets/videos/dynamation_ad.mp4
 Assets/*.mp4
+# Environment variables
+.env
+.env.*
+!.env.example
