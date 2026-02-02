@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
@@ -59,14 +58,11 @@ const MovieCatalog = () => {
         throw new Error(session.error);
       }
 
-      // Redirect to secure Stripe-hosted Checkout
-      // Casting to any to avoid type definition ambiguity between backend and frontend stripe packages
-      const result = await (stripe as any).redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (result.error) {
-        alert(result.error.message);
+      if (session.url) {
+        // Modern, secure redirection directly to the Stripe-hosted URL
+        window.location.href = session.url;
+      } else {
+        throw new Error("Failed to generate checkout URL.");
       }
     } catch (e: any) {
       console.error("Payment initialization failed", e);
