@@ -79,22 +79,22 @@ const MovieCatalog = () => {
     id: 'wanp',
     title: 'Wishes Are Never Perfect',
     poster: '/assets/images/the_360_view.jpg',
-    video: 'nYawwuIjE2ng1APA9INJR1GeMD82ysWMTGDwOn6tc2W8' // Mux Playback ID
+    video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' // Mux Playback ID
   };
 
   const trending = [
-    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/demon_time_thumb.jpg', video: 'Cbgp0GrwbrFX9Tab0149SgREcYuca4FShkeLF004d9keQM' },
-    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/impossible_colors.jpg', video: '021Zo2qwhj01Aye1Yxt3rZw7AGsTHfWfMBFnXc9MVFS02cI' },
-    { id: 'sn', title: 'SEASONED', poster: '/assets/images/seasoned_thumb_official.jpg', video: 'nYawwuIjE2ng1APA9INJR1GeMD82ysWMTGDwOn6tc2W8' },
-    { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/last_laugh_thumb.jpg', video: 'S019u1VfcFaCEHJ56TaU3cRd9rAht9qsN43HvFqjh7ww' },
-    { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/bucketlisting_thumb_official.jpg', video: 'uIHKVUYrr8HbNtPFyVerYhroz2QLJ1BrjqY2nal6qyQ' },
+    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/demon_time_thumb.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
+    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/impossible_colors.jpg', video: '1OHMtmuGhgvaYAFFXxeb00ekFvztePCSWZEBttB5TDZc' },
+    { id: 'sn', title: 'SEASONED', poster: '/assets/images/seasoned_thumb_official.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/last_laugh_thumb.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
+    { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/bucketlisting_thumb_official.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
   ];
 
   const directorsCut = [
-    { id: 'madness', title: 'MADNESS', poster: '/assets/images/madness_thumb.jpg', video: '61078FXXGAlWbDnsDL89KjF2FLamiSRMEI02G7PSFgII' },
-    { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/thanks_for_playing_thumb.webp', video: '64LfQsaEA4YOP2z7B881UDTHwAPNMK7g4WMb82681U8B8B8B' },
+    { id: 'madness', title: 'MADNESS', poster: '/assets/images/madness_thumb.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
+    { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/thanks_for_playing_thumb.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
     { id: 'mental', title: 'MENTAL', poster: '/assets/images/mental_thumb.jpg', video: '' },
-    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/paradox_hotel_thumb.jpeg', video: 'Tv02VG01C7SRRoPEbDUd34P61FuX0gS1WD98RBAPEBNo18' },
+    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/paradox_hotel_thumb.jpeg', video: 'xByOSvrZKRbdqtCy01G7v00S56WX4GaRsxxc4IzL6k02SU' },
   ];
 
   const actionMovies = [
@@ -273,7 +273,7 @@ const MovieCatalog = () => {
             zIndex: 5,
             boxShadow: '0 0 60px rgba(0, 0, 0, 0.8)'
           }}>
-            <video src="https://stream.mux.com/ri8dT5C9CPKcNuQAqtxhthAeteFlbLCIy8aROZ4M4L4.m3u8" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <video src="https://stream.mux.com/3YyuaYBueFY9vvZFWaAdglnrQzwOl84MbD800zYYLoM00.m3u8" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         </div>
 
