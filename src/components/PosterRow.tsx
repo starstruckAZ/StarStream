@@ -6,6 +6,7 @@ interface ContentItem {
     poster: string;
     video?: string;
     isComingSoon?: boolean;
+    type?: 'series' | 'movie';
 }
 
 interface PosterRowProps {

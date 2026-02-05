@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import MuxPlayer from '@mux/mux-player-react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
@@ -9,6 +9,8 @@ import VideoModal from './components/VideoModal';
 import Success from './pages/Success';
 import Cancel from './pages/Cancel';
 import Login from './pages/Login';
+import SeriesPage from './pages/SeriesPage';
+import PremiumPopup from './components/PremiumPopup';
 
 interface ContentItem {
   id: string;
@@ -16,6 +18,7 @@ interface ContentItem {
   poster: string;
   video: string;
   isComingSoon?: boolean;
+  type?: 'series' | 'movie'; // Added type for series handling
 }
 
 const MovieCatalog = () => {
@@ -23,6 +26,15 @@ const MovieCatalog = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { hasUnlockedCollection, user } = useAuth();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const navigate = useNavigate(); // For series navigation
+
+  const handlePlay = (item: ContentItem) => {
+    if (item.type === 'series') {
+      navigate(`/series/${item.id}`);
+    } else {
+      setSelectedItem(item);
+    }
+  };
 
   const handleIntroEnd = () => {
     setIsLoading(false);
@@ -63,7 +75,8 @@ const MovieCatalog = () => {
   };
 
   const isItemLocked = (itemId: string) => {
-    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss'];
+    // Premium IDs that require the "Jaron Ikner Collection" unlock
+    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss', 'continuum', 'moire'];
     return premiumIds.includes(itemId) && !hasUnlockedCollection('jaron-ikner-collection');
   };
 
@@ -81,19 +94,25 @@ const MovieCatalog = () => {
   };
 
   const trending = [
+    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
     { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
     { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
-    { id: 'sn', title: 'SEASONED', poster: '/assets/images/official/Seasoned Thumbnail.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
     { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/official/The Last Laugh Thumbnail.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
     { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/official/bucketlisting thubnail.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
   ];
 
   const directorsCut = [
     { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
+    { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: '', isComingSoon: true },
+    { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.png', video: '', type: 'series' as const },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
     { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
     { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/official/Paradox Hotel Thumbnail.jpeg', video: '2I5USjY02GmhGXNTfzm89sAdSlNG4prlp9w8ZUtY9ecA' },
+  ];
+
+  const originalSeries = [
+    { id: 'cosmic-creatives', title: 'COSMIC CREATIVES', poster: '/assets/images/official/Cosmic Creatives Thumbnail.png', video: '', type: 'series' as const },
   ];
 
   const actionMovies = [
@@ -106,7 +125,7 @@ const MovieCatalog = () => {
   const adultRomance = [
     { id: 'rom1', title: 'FORBIDDEN REALITY', poster: '/assets/images/official/Forbidden Reality Thumbnail.png', video: '', isComingSoon: true },
     { id: 'rom2', title: 'QUANTUM LOVE', poster: '/assets/images/official/Quantum Love.png', video: '', isComingSoon: true },
-    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/last_date.png', video: '', isComingSoon: true },
+    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/last_date.png', video: '' },
     { id: 'rom4', title: 'DATING MY DOPPELGANGER', poster: '/assets/images/official/Dating my Doppelganger Thumbnail.png', video: '', isComingSoon: true },
   ];
 
@@ -123,7 +142,7 @@ const MovieCatalog = () => {
 
   const comedyShows = [
     { id: 'comedy1', title: 'VOID OF LAUGHTER', poster: '/assets/images/official/Void Of Laughter Thumbnail.png', video: 'o56rrLeP1AfXbQGQYRTYRUwjuCaLhivEKcAsSHn7jD4' },
-    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/show_8.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
+    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/official/Glitch In The Gag Thumbnail.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
   ];
 
   const originals = [
@@ -133,14 +152,7 @@ const MovieCatalog = () => {
     { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Thumbnail.png', video: '', isComingSoon: true },
   ];
 
-  const multiverse = [
-    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
-    { id: 'tech', title: 'CHRONO-TECH WEEKLY', poster: '/assets/images/official/Chrono Tech Thumbnail.png', video: '', isComingSoon: true },
-    { id: 'desert', title: 'THE SILENT WASTES', poster: '/assets/images/branding/silent_wastes.png', video: '', isComingSoon: true },
-    { id: 'cf', title: 'CHRONOFLEX: SYNCHRONIZE', poster: '/assets/images/branding/chronoflex.png', video: '/assets/videos/chronoflex_ad.mp4' },
-    { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
-    { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/wanp_clean_wide.png', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
-  ];
+
 
   if (isLoading) {
     return (
@@ -186,6 +198,7 @@ const MovieCatalog = () => {
   return (
     <div style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
       <StarstreamNav />
+      <PremiumPopup />
       <div id="top"></div>
       <Hero onPlay={() => setSelectedItem(mainFilm)} />
 
@@ -193,49 +206,55 @@ const MovieCatalog = () => {
         <PosterRow
           title="Trending on Starstream"
           items={trending}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Director's Cut: Jaron Ikner"
           items={directorsCut}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
+        />
+
+        <PosterRow
+          title="Original Series"
+          items={originalSeries}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Heavy Action & Cinematic Combat"
           items={actionMovies}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Late Night: Forbidden Reality"
           items={adultRomance}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Outrageous Reality"
           items={outrageousReality}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Interdimensional Spectacle"
           items={interdimensionalShows}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="High-Dimensional Comedy"
           items={comedyShows}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         <PosterRow
           title="Starstream Originals"
           items={originals}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
+          onSelect={handlePlay}
         />
 
         {/* Dynamation Recruitment Ad */}
@@ -312,11 +331,6 @@ const MovieCatalog = () => {
           </div>
         </div>
 
-        <PosterRow
-          title="Multiverse Catalog"
-          items={multiverse}
-          onSelect={(item) => setSelectedItem(item as ContentItem)}
-        />
       </div>
 
       <VideoModal
@@ -418,6 +432,7 @@ const App = () => {
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => console.log('Playing episode:', item)} />} />
       </Routes>
     </Router>
   );
