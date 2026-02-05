@@ -8,6 +8,7 @@ import PosterRow from './components/PosterRow';
 import VideoModal from './components/VideoModal';
 import Success from './pages/Success';
 import Cancel from './pages/Cancel';
+import Login from './pages/Login';
 
 interface ContentItem {
   id: string;
@@ -416,6 +417,7 @@ const App = () => {
         <Route path="/" element={<MovieCatalog />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

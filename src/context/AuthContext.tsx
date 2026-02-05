@@ -58,6 +58,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = () => netlifyIdentity.logout();
 
     const hasUnlockedCollection = (collectionId: string) => {
+        // ADMIN BYPASS: Grant full access to the master account
+        if (user?.email?.toLowerCase() === 'starstruckunlimited@gmail.com') {
+            return true;
+        }
+
         // Check if the user has the collection ID in their app_metadata
         // We'll store this in app_metadata.unlocked_collections (synced via Stripe webhook later)
         return user?.app_metadata?.unlocked_collections?.includes(collectionId) || false;
