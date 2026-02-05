@@ -1,0 +1,15 @@
+{
+    "short_name": "Starstream",
+    "name": "Starstream Entertainment",
+    "icons": [
+        {
+            "src": "/assets/images/starstream_logo_new.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#050505",
+    "background_color": "#050505"
+}

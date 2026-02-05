@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const StarstreamNav = () => {
+const StarstreamNav = ({ onSearch }: { onSearch?: (query: string) => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const { isLoggedIn, login, logout, user } = useAuth();
 
   useEffect(() => {
@@ -13,6 +15,25 @@ const StarstreamNav = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearchValue(val);
+    onSearch?.(val);
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <nav className="starstream-nav" style={{
@@ -48,15 +69,37 @@ const StarstreamNav = () => {
 
         <ul className="nav-links" style={{ display: 'flex', gap: '25px', fontSize: '0.9rem', fontWeight: 500 }}>
           <li className="nav-link"><Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link></li>
-          <li className="nav-link hide-mobile">Originals</li>
-          <li className="nav-link">Catalog</li>
-          <li className="nav-link hide-mobile">New & Popular</li>
-          <li className="nav-link hide-mobile">My List</li>
+          <li className="nav-link hide-mobile" onClick={() => scrollToSection('originals')}>Originals</li>
+          <li className="nav-link" onClick={() => scrollToSection('trending')}>Catalog</li>
+          <li className="nav-link hide-mobile" onClick={() => scrollToSection('directors-cut')}>Jaron Ikner Collection</li>
+          <li className="nav-link hide-mobile" onClick={() => scrollToSection('series')}>Series</li>
         </ul>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }} className="hide-mobile">🔍</div>
+        <div style={{ display: 'flex', alignItems: 'center', backgroundColor: isSearchActive ? 'rgba(255,255,255,0.1)' : 'transparent', padding: '5px 10px', borderRadius: '4px', transition: 'all 0.3s ease', border: isSearchActive ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent' }}>
+          <div
+            onClick={() => setIsSearchActive(!isSearchActive)}
+            style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }}
+          >🔍</div>
+          <input
+            type="text"
+            placeholder="Titles, people, genres"
+            value={searchValue}
+            onChange={handleSearchChange}
+            style={{
+              width: isSearchActive ? '200px' : '0',
+              opacity: isSearchActive ? 1 : 0,
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              marginLeft: isSearchActive ? '10px' : '0',
+              outline: 'none',
+              transition: 'all 0.3s ease',
+              fontSize: '0.8rem'
+            }}
+          />
+        </div>
 
         {isLoggedIn ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

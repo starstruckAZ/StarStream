@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import SkeletonPoster from './SkeletonPoster';
 
 interface ContentItem {
     id: string;
@@ -13,10 +14,21 @@ interface PosterRowProps {
     title: string;
     items: ContentItem[];
     onSelect: (item: ContentItem) => void;
+    myList?: string[];
+    onToggleMyList?: (id: string) => void;
 }
 
-const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
+const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect, myList = [], onToggleMyList }) => {
+    const [rowLoading, setRowLoading] = useState(true);
     const scrollRef = React.useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Simulate a small delay for row loading feel if items change
+        if (items.length > 0) {
+            const timer = setTimeout(() => setRowLoading(false), 400);
+            return () => clearTimeout(timer);
+        }
+    }, [items]);
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollRef.current) {
@@ -92,9 +104,19 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
                         scrollBehavior: 'smooth'
                     }}
                 >
-                    {items.map((item) => (
-                        <Poster key={item.id} item={item} onSelect={onSelect} />
-                    ))}
+                    {rowLoading ? (
+                        [...Array(6)].map((_, i) => <SkeletonPoster key={i} />)
+                    ) : (
+                        items.map((item) => (
+                            <Poster
+                                key={item.id}
+                                item={item}
+                                onSelect={onSelect}
+                                isMyList={myList.includes(item.id)}
+                                onToggleMyList={onToggleMyList}
+                            />
+                        ))
+                    )}
                 </div>
 
                 <button
@@ -153,8 +175,26 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
     );
 };
 
-const Poster = React.memo(({ item, onSelect }: { item: ContentItem; onSelect: (item: ContentItem) => void }) => {
+const Poster = React.memo(({
+    item,
+    onSelect,
+    isMyList,
+    onToggleMyList
+}: {
+    item: ContentItem;
+    onSelect: (item: ContentItem) => void;
+    isMyList: boolean;
+    onToggleMyList?: (id: string) => void;
+}) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        // Randomly simulate progress for some items to show off the UI
+        const savedProgress = localStorage.getItem(`progress_${item.id}`);
+        if (savedProgress) setProgress(parseInt(savedProgress));
+        else if (item.id === 'wanp' || item.id === 'dt') setProgress(Math.random() * 80);
+    }, [item.id]);
 
     return (
         <div
@@ -190,6 +230,25 @@ const Poster = React.memo(({ item, onSelect }: { item: ContentItem; onSelect: (i
                     transform: isHovered ? 'scale(1.1)' : 'scale(1)'
                 }}
             />
+
+            {progress > 0 && (
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    height: '3px',
+                    width: '100%',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    zIndex: 10
+                }}>
+                    <div style={{
+                        height: '100%',
+                        width: `${progress}%`,
+                        backgroundColor: 'var(--primary-color)',
+                        boxShadow: '0 0 10px var(--primary-color)'
+                    }}></div>
+                </div>
+            )}
 
             <div className="poster-title-overlay" style={{
                 position: 'absolute',
@@ -264,6 +323,25 @@ const Poster = React.memo(({ item, onSelect }: { item: ContentItem; onSelect: (i
                             <div style={{ fontWeight: 800, fontSize: '1.1rem', textTransform: 'uppercase' }}>
                                 {item.title}
                             </div>
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onToggleMyList?.(item.id);
+                                }}
+                                style={{
+                                    marginTop: '15px',
+                                    padding: '5px 15px',
+                                    border: '1px solid #fff',
+                                    borderRadius: '20px',
+                                    fontSize: '0.8rem',
+                                    fontWeight: 700,
+                                    backgroundColor: isMyList ? '#fff' : 'transparent',
+                                    color: isMyList ? '#000' : '#fff',
+                                    transition: 'all 0.3s ease'
+                                }}
+                            >
+                                {isMyList ? '✓ IN MY LIST' : '+ MY LIST'}
+                            </button>
                         </>
                     )}
                 </div>

@@ -18,13 +18,20 @@ interface ContentItem {
   poster: string;
   video?: string;
   isComingSoon?: boolean;
-  type?: 'series' | 'movie'; // Added type for series handling
+  type?: 'series' | 'movie';
+  category?: string; // Added category for filtering
 }
 
 const MovieCatalog = ({
-  onPlay
+  onPlay,
+  searchQuery,
+  myList,
+  onToggleMyList
 }: {
-  onPlay: (item: ContentItem) => void
+  onPlay: (item: ContentItem) => void;
+  searchQuery: string;
+  myList: string[];
+  onToggleMyList: (id: string) => void;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -101,11 +108,32 @@ const MovieCatalog = ({
   ];
 
   const originals = [
-    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/official/Neon City Noir Thumbnail.png', video: '', isComingSoon: true },
-    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/official/Beyond The Gate Thumbnail.png', video: '', isComingSoon: true },
-    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/official/Void Whisperers Thumbnail.png', video: '', isComingSoon: true },
-    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Legal Reality Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/official/Neon City Noir Thumbnail.png', video: '', isComingSoon: true, category: 'originals' },
+    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/official/Beyond The Gate Thumbnail.png', video: '', isComingSoon: true, category: 'originals' },
+    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/official/Void Whisperers Thumbnail.png', video: '', isComingSoon: true, category: 'originals' },
+    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Legal Reality Thumbnail.png', video: '', isComingSoon: true, category: 'originals' },
   ];
+
+  const allItems = [
+    ...trending,
+    ...directorsCut,
+    ...originalSeries,
+    ...actionMovies,
+    ...adultRomance,
+    ...outrageousReality,
+    ...interdimensionalShows,
+    ...comedyShows,
+    ...originals
+  ];
+
+  const filteredItems = (items: ContentItem[]) => {
+    if (!searchQuery) return items;
+    return items.filter(item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  const myListedItems = allItems.filter(item => myList.includes(item.id));
 
 
 
@@ -151,141 +179,186 @@ const MovieCatalog = ({
   }
 
   return (
-    <div style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
-      <StarstreamNav />
-      <PremiumPopup />
+    <div className="fade-in" style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
       <div id="top"></div>
       <Hero onPlay={() => onPlay(mainFilm)} />
 
       <div style={{ marginTop: '-140px', position: 'relative', zIndex: 20 }}>
-        <PosterRow
-          title="Trending on Starstream"
-          items={trending}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="The Jaron Ikner Collection (Premium Access Only)"
-          items={directorsCut}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Original Series"
-          items={originalSeries}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Heavy Action & Cinematic Combat"
-          items={actionMovies}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Late Night: Forbidden Reality"
-          items={adultRomance}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Outrageous Reality"
-          items={outrageousReality}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Interdimensional Spectacle"
-          items={interdimensionalShows}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="High-Dimensional Comedy"
-          items={comedyShows}
-          onSelect={onPlay}
-        />
-
-        <PosterRow
-          title="Starstream Originals"
-          items={originals}
-          onSelect={onPlay}
-        />
-
-        {/* Dynamation Recruitment Ad */}
-        <div className="recruitment-ad" style={{
-          margin: '100px 4%',
-          padding: '80px',
-          background: 'rgba(10, 10, 10, 0.8)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(0, 243, 255, 0.15)',
-          display: 'flex',
-          gap: '80px',
-          alignItems: 'center',
-          borderRadius: '4px',
-          boxShadow: '0 40px 100px rgba(0, 0, 0, 0.8)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: '150%',
-            height: '150%',
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(circle, rgba(0, 243, 255, 0.05) 0%, transparent 70%)',
-            animation: 'pulse 8s infinite ease-in-out'
-          }}></div>
-
-          <div style={{ flex: 1, position: 'relative', zIndex: 5 }}>
-            <h2 className="ad-title" style={{
-              color: 'var(--primary-color)',
-              fontSize: '3rem',
-              fontWeight: 900,
-              marginBottom: '20px',
-              textTransform: 'uppercase',
-              letterSpacing: '8px',
-              textShadow: '0 0 20px rgba(0, 243, 255, 0.4)'
-            }}>DYNAMATION</h2>
-            <div style={{ height: '2px', width: '60px', backgroundColor: 'var(--primary-color)', marginBottom: '30px' }}></div>
-            <p className="ad-slogan" style={{ fontSize: '1.4rem', color: '#fff', fontStyle: 'italic', marginBottom: '15px', fontWeight: 300 }}>
-              "We don't just study quantum reality. <br />We build it."
-            </p>
-            <p className="ad-desc" style={{ color: '#888', marginBottom: '40px', maxWidth: '500px', lineHeight: 1.6 }}>
-              Eligible agents are needed for the Wellness City initiative.
-              Join the team that turns possibility into progress.
-            </p>
-            <button className="ad-btn" style={{
-              padding: '16px 50px',
-              backgroundColor: 'var(--primary-color)',
-              color: '#000',
-              fontWeight: 900,
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              border: 'none',
-              borderRadius: '2px',
-              cursor: 'pointer',
-              fontSize: '1rem',
-              boxShadow: '0 0 30px rgba(0, 243, 255, 0.3)'
-            }}>Join the Core</button>
-          </div>
-
-          <div className="ad-video-container" style={{
-            width: '550px',
-            height: '310px',
-            backgroundColor: '#000',
-            borderRadius: '2px',
-            overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.1)',
-            position: 'relative',
-            zIndex: 5,
-            boxShadow: '0 0 60px rgba(0, 0, 0, 0.8)'
-          }}>
-            <video src="https://stream.mux.com/3YyuaYBueFY9vvZFWaAdglnrQzwOl84MbD800zYYLoM00.m3u8" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
+        <div id="mylist">
+          {myListedItems.length > 0 && !searchQuery && (
+            <PosterRow
+              title="My List"
+              items={myListedItems}
+              onSelect={onPlay}
+              myList={myList}
+              onToggleMyList={onToggleMyList}
+            />
+          )}
         </div>
 
+        <div id="trending">
+          <PosterRow
+            title="Trending on Starstream"
+            items={filteredItems(trending)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="directors-cut">
+          <PosterRow
+            title="The Jaron Ikner Collection (Premium Access Only)"
+            items={filteredItems(directorsCut)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="series">
+          <PosterRow
+            title="Original Series"
+            items={filteredItems(originalSeries)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="action">
+          <PosterRow
+            title="Heavy Action & Cinematic Combat"
+            items={filteredItems(actionMovies)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="romance">
+          <PosterRow
+            title="Late Night: Forbidden Reality"
+            items={filteredItems(adultRomance)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="reality">
+          <PosterRow
+            title="Outrageous Reality"
+            items={filteredItems(outrageousReality)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="interdimensional">
+          <PosterRow
+            title="Interdimensional Spectacle"
+            items={filteredItems(interdimensionalShows)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="comedy">
+          <PosterRow
+            title="High-Dimensional Comedy"
+            items={filteredItems(comedyShows)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+
+        <div id="originals">
+          <PosterRow
+            title="Starstream Originals"
+            items={filteredItems(originals)}
+            onSelect={onPlay}
+            myList={myList}
+            onToggleMyList={onToggleMyList}
+          />
+        </div>
+      </div>
+
+      {/* Dynamation Recruitment Ad */}
+      <div className="recruitment-ad" style={{
+        margin: '100px 4%',
+        padding: '80px',
+        background: 'rgba(10, 10, 10, 0.8)',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(0, 243, 255, 0.15)',
+        display: 'flex',
+        gap: '80px',
+        alignItems: 'center',
+        borderRadius: '4px',
+        boxShadow: '0 40px 100px rgba(0, 0, 0, 0.8)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '150%',
+          height: '150%',
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(circle, rgba(0, 243, 255, 0.05) 0%, transparent 70%)',
+          animation: 'pulse 8s infinite ease-in-out'
+        }}></div>
+
+        <div style={{ flex: 1, position: 'relative', zIndex: 5 }}>
+          <h2 className="ad-title" style={{
+            color: 'var(--primary-color)',
+            fontSize: '3rem',
+            fontWeight: 900,
+            marginBottom: '20px',
+            textTransform: 'uppercase',
+            letterSpacing: '8px',
+            textShadow: '0 0 20px rgba(0, 243, 255, 0.4)'
+          }}>DYNAMATION</h2>
+          <div style={{ height: '2px', width: '60px', backgroundColor: 'var(--primary-color)', marginBottom: '30px' }}></div>
+          <p className="ad-slogan" style={{ fontSize: '1.4rem', color: '#fff', fontStyle: 'italic', marginBottom: '15px', fontWeight: 300 }}>
+            "We don't just study quantum reality. <br />We build it."
+          </p>
+          <p className="ad-desc" style={{ color: '#888', marginBottom: '40px', maxWidth: '500px', lineHeight: 1.6 }}>
+            Eligible agents are needed for the Wellness City initiative.
+            Join the team that turns possibility into progress.
+          </p>
+          <button className="ad-btn" style={{
+            padding: '16px 50px',
+            backgroundColor: 'var(--primary-color)',
+            color: '#000',
+            fontWeight: 900,
+            textTransform: 'uppercase',
+            letterSpacing: '3px',
+            border: 'none',
+            borderRadius: '2px',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            boxShadow: '0 0 30px rgba(0, 243, 255, 0.3)'
+          }}>Join the Core</button>
+        </div>
+
+        <div className="ad-video-container" style={{
+          width: '550px',
+          height: '310px',
+          backgroundColor: '#000',
+          borderRadius: '2px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.1)',
+          position: 'relative',
+          zIndex: 5,
+          boxShadow: '0 0 60px rgba(0, 0, 0, 0.8)'
+        }}>
+          <video src="https://stream.mux.com/3YyuaYBueFY9vvZFWaAdglnrQzwOl84MbD800zYYLoM00.m3u8" autoPlay muted loop style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
       </div>
 
       <footer className="starstream-footer" style={{
@@ -374,8 +447,33 @@ const MovieCatalog = ({
 
 const App = () => {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [myList, setMyList] = useState<string[]>([]);
   const { hasUnlockedCollection, user } = useAuth();
   const navigate = useNavigate();
+
+  // Handle Dynamic Title
+  useEffect(() => {
+    if (selectedItem) {
+      document.title = `${selectedItem.title} | Starstream`;
+    } else {
+      document.title = 'Starstream | Interdimensional Movies & Series';
+    }
+  }, [selectedItem]);
+
+  // Handle My List Persistence
+  useEffect(() => {
+    const savedList = localStorage.getItem('starstream_mylist');
+    if (savedList) setMyList(JSON.parse(savedList));
+  }, []);
+
+  const handleToggleMyList = (id: string) => {
+    const newList = myList.includes(id)
+      ? myList.filter(itemId => itemId !== id)
+      : [...myList, id];
+    setMyList(newList);
+    localStorage.setItem('starstream_mylist', JSON.stringify(newList));
+  };
 
   const handlePlay = (item: ContentItem) => {
     if (item.type === 'series') {
@@ -418,10 +516,15 @@ const App = () => {
 
   return (
     <>
+      <StarstreamNav onSearch={setSearchQuery} />
+      <PremiumPopup />
       <Routes>
         <Route path="/" element={
           <MovieCatalog
             onPlay={handlePlay}
+            searchQuery={searchQuery}
+            myList={myList}
+            onToggleMyList={handleToggleMyList}
           />
         } />
         <Route path="/success" element={<Success />} />
