@@ -103,7 +103,7 @@ const MovieCatalog = () => {
 
   const directorsCut = [
     { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
-    { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: '', isComingSoon: true }, // Needs ID
+    { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: 'rd61V01009h7V01eWVrWSET2jrpYr6dCUcBM61KOiDo8t8' }, // Verified ID
     { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.png', video: '', type: 'series' as const },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
@@ -116,7 +116,7 @@ const MovieCatalog = () => {
   ];
 
   const actionMovies = [
-    { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/official/dimension strike thumbnail.png', video: '', isComingSoon: true },
+    { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/official/dimension strike thumbnail.png', video: 'bcLmzD4lboqsL93OB1BqrlNbEVtMEXtHHAOMqxY02Jnc' },
     { id: 'action2', title: 'VOID COMBAT', poster: '/assets/images/official/Void Combat Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action3', title: 'MULTIVERSE MERCENARIES', poster: '/assets/images/official/Multiverse Mercenaries Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action4', title: 'PORTAL HOPPERS', poster: '/assets/images/official/Portal Hoppers Thumbnail.png', video: '', isComingSoon: true },
@@ -210,7 +210,7 @@ const MovieCatalog = () => {
         />
 
         <PosterRow
-          title="Director's Cut: Jaron Ikner"
+          title="The Jaron Ikner Collection (Premium Access Only)"
           items={directorsCut}
           onSelect={handlePlay}
         />

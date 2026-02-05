@@ -39,56 +39,56 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep1.1',
                     title: 'Episode 1: Daviphresh',
                     description: 'The Maryvale Wolf himself. Discover how the unique and challenging environment of Maryvale shaped his identity and nurtured his passion for rap.',
-                    video: 'Yo0281HHjv4xBEo5sU6RsJBbF1btLDuchnJKVo76nPC4', // Verified ID (L)
+                    video: 'd02zvTdHBjDoT1c5zwdbU9dLUrG8Fa3ZgRQzqLUSB4gA', // Verified
                     duration: '45m'
                 },
                 {
                     id: 'cc-ep2.1',
                     title: 'Episode 2: Tay Da Crown',
                     description: 'Straight out of Surprise, Arizona. Tay Da Crown channels his family\'s legacy through his powerful lyrics and expanding fashion empire.',
-                    video: 'eUwfcBEQTIffTq6xXCsP2jBYkAsYtaRLot9VK5PBZes', // Verified ID (H)
+                    video: 'eUwfcBEQTIffTq6xXCsP2jBYkAsYtaRLot9VK5PBZes', // Verified
                     duration: '38m'
                 },
                 {
                     id: 'cc-ep3',
                     title: 'Episode 3: Rocadopolis',
                     description: 'From the Matthew Henson projects to performing with Ice Cube. Dopo discusses community activism and juggling music with business.',
-                    video: 'rd61V01009h7V01eWVrWSET2jrpYr6dCUcBM61KOiDo8t8', // Unverified Candidate (J)
+                    video: '3pgmmLDhskTmlndRsITJ8ixMF3yNjH00MuEDbIYbWYtc', // Verified
                     duration: '42m'
                 },
                 {
                     id: 'cc-ep4',
                     title: 'Episode 4: Antsoul',
                     description: 'An original Cali-creation landing in the Arizona desert. AntSoul unveils the celestial sonnets embedded in his heart.',
-                    video: 'bcLmzD4lboqsL93OB1BqrlNbEVtMEXtHHAOMqxY02Jnc', // Unverified Candidate (F)
+                    video: '9gJVW1zn402vrtfh00FLWvOkA198j9jyJ3noa01aqxcfN00', // Verified
                     duration: '40m'
                 },
                 {
                     id: 'cc-ep5',
                     title: 'Episode 5: Ambition',
                     description: 'A multi-talented force from San Diego. We explore her experiences as a female rapper in a male-dominated industry.',
-                    video: 'fgosVuMrmCty6100SYdjZ01101h02c91LaUjDRxHWu7QrLw', // Unverified Candidate (D)
+                    video: 'szULUbsFb8ss6yCRu00025uqKFUUMp00sHSFKE1bnP7BUU', // Verified
                     duration: '41m'
                 },
                 {
                     id: 'cc-ep6',
                     title: 'Episode 6: ThatKidMav',
                     description: 'A lyrical odyssey with a nomadic rapper. Explore the interplay between creativity and global personal experience.',
-                    video: 'wYRRCNWBws2A700CJtJZ01KmkJqlVLUzYx91yWVxE4n28', // Unverified Candidate (C)
+                    video: '7x3d7lAmL8LePd1X009uHlYNZq0231QA65NSsygJgy7X4', // Verified
                     duration: '39m'
                 },
                 {
                     id: 'cc-ep7',
                     title: 'Episode 7: Jaaé',
                     description: 'An intimate look into the unique experiences of navigating the industry as an independent and non-binary artist.',
-                    video: 'qrnJdGI1iPso2Q7dPq1DXLSNjOOusvAv00tGgRTKspgE', // Unverified Candidate (B)
+                    video: 'JM2jW7600602nEDWNovvvLFR8emhwaVE47reyz979Z5OE', // Verified
                     duration: '44m'
                 },
                 {
                     id: 'cc-ep8',
                     title: 'Episode 8: Wolfzie',
                     description: 'Musician, DJ, and visionary designer behind Homebody Friends. A captivating journey of versatility.',
-                    video: 'rd61V01009h7V01eWVrWSET2jrpYr6dCUcBM61KOiDo8t8', // Placeholder (reused J for now)
+                    video: '3pgmmLDhskTmlndRsITJ8ixMF3yNjH00MuEDbIYbWYtc', // Verified
                     duration: '37m'
                 }
             ]
@@ -99,9 +99,11 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
             description: 'An experimental episodic series causing visual interference patterns in the fabric of reality.',
             banner: '/assets/images/official/Moire Thumbnail.png', // Needs upload
             episodes: [
-                { id: 'm-ep1', title: 'Chapter I', description: 'The interference begins.', video: '01j12K1zr87xFyZHCCVWV4HlfPLFxLKGqri00aPUbX7MA', duration: '5m' }, // Verified (K)
-                { id: 'm-ep2', title: 'Chapter II', description: 'Visual patterns emerge.', video: '85i00FjUgn1OfHLXqPB3RcUPZSBHetgpuod6HxdT97zc', duration: '7m' }, // Verified (I)
-                { id: 'm-ep3', title: 'Chapter III', description: 'Reality distorts.', video: 'T9q35hvWM0001wnFrD5V7IQAKFx6Q1l43yB12n36sr019I', duration: '6m' } // Verified (G)
+                { id: 'm-ep1', title: 'Chapter I', description: 'The interference begins.', video: '01j12K1zr87xFyZHCCVWV4HlfPLFxLKGqri00aPUbX7MA', duration: '5m' }, // Verified
+                { id: 'm-ep2', title: 'Chapter II', description: 'Visual patterns emerge.', video: '85i00FjUgn1OfHLXqPB3RcUPZSBHetgpuod6HxdT97zc', duration: '7m' }, // Verified
+                { id: 'm-ep3', title: 'Chapter III', description: 'Reality distorts.', video: 'T9q35hvWM0001wnFrD5V7IQAKFx6Q1l43yB12n36sr019I', duration: '6m' }, // Verified
+                { id: 'm-ep4', title: 'Chapter IV', description: 'The glitch expands.', video: 'wYRRCNWBws2A700CJtJZ01KmkJqlVLUzYx91yWVxE4n28', duration: '6m' }, // Verified
+                { id: 'm-ep5', title: 'Chapter V', description: 'System failure.', video: 'fgosVuMrmCty6100SYdjZ01101h02c91LaUjDRxHWu7QrLw', duration: '6m' } // Verified
             ]
         }
     };
