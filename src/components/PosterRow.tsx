@@ -16,8 +16,23 @@ interface PosterRowProps {
 }
 
 const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
+    const scrollRef = React.useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollRef.current) {
+            const scrollAmount = window.innerWidth * 0.8;
+            scrollRef.current.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     return (
-        <div className="poster-row-container" style={{ padding: '30px 0 40px 4%' }}>
+        <div className="poster-row-container" style={{
+            padding: '30px 0 40px 0',
+            position: 'relative'
+        }}>
             <h3 className="poster-row-title" style={{
                 fontSize: '1.6rem',
                 marginBottom: '20px',
@@ -26,7 +41,8 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
                 letterSpacing: '-0.5px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '15px'
+                gap: '15px',
+                paddingLeft: '4%'
             }}>
                 {title}
                 <span style={{
@@ -36,26 +52,100 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
                     marginRight: '4%'
                 }}></span>
             </h3>
-            <div className="poster-scroll-container" style={{
-                display: 'flex',
-                gap: '12px',
-                overflowX: 'auto',
-                paddingBottom: '20px',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
-            }}>
-                {items.map((item) => (
-                    <Poster key={item.id} item={item} onSelect={onSelect} />
-                ))}
+
+            <div style={{ position: 'relative' }}>
+                <button
+                    onClick={() => scroll('left')}
+                    className="scroll-btn left"
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        bottom: '20px',
+                        width: '4%',
+                        zIndex: 200,
+                        background: 'linear-gradient(to right, rgba(5,5,5,0.9), transparent)',
+                        border: 'none',
+                        color: '#fff',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '2rem',
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease'
+                    }}
+                >
+                    ‹
+                </button>
+
+                <div
+                    ref={scrollRef}
+                    className="poster-scroll-container"
+                    style={{
+                        display: 'flex',
+                        gap: '12px',
+                        overflowX: 'auto',
+                        padding: '0 4% 20px 4%',
+                        scrollbarWidth: 'none',
+                        msOverflowStyle: 'none',
+                        scrollBehavior: 'smooth'
+                    }}
+                >
+                    {items.map((item) => (
+                        <Poster key={item.id} item={item} onSelect={onSelect} />
+                    ))}
+                </div>
+
+                <button
+                    onClick={() => scroll('right')}
+                    className="scroll-btn right"
+                    style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        bottom: '20px',
+                        width: '4%',
+                        zIndex: 200,
+                        background: 'linear-gradient(to left, rgba(5,5,5,0.9), transparent)',
+                        border: 'none',
+                        color: '#fff',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '2rem',
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease'
+                    }}
+                >
+                    ›
+                </button>
             </div>
+
             <style>{`
+                .poster-row-container:hover .scroll-btn {
+                    opacity: 1 !important;
+                }
+                .scroll-btn:hover {
+                    background: linear-gradient(to right, rgba(0, 243, 255, 0.2), transparent) !important;
+                }
+                .scroll-btn.right:hover {
+                    background: linear-gradient(to left, rgba(0, 243, 255, 0.2), transparent) !important;
+                }
+                .poster-scroll-container::-webkit-scrollbar {
+                    display: none;
+                }
                 @media (max-width: 768px) {
                     .poster-row-container {
-                        padding: 20px 0 30px 4% !important;
+                        padding: 20px 0 30px 0 !important;
                     }
                     .poster-row-title {
                         font-size: 1.1rem !important;
                         margin-bottom: 15px !important;
+                    }
+                    .scroll-btn {
+                        display: none !important;
                     }
                 }
             `}</style>
@@ -63,7 +153,7 @@ const PosterRow: React.FC<PosterRowProps> = ({ title, items, onSelect }) => {
     );
 };
 
-const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => void }> = ({ item, onSelect }) => {
+const Poster = React.memo(({ item, onSelect }: { item: ContentItem; onSelect: (item: ContentItem) => void }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -101,7 +191,6 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
                 }}
             />
 
-            {/* Title Overlay / Branded Logo Layer */}
             <div className="poster-title-overlay" style={{
                 position: 'absolute',
                 bottom: 0,
@@ -127,7 +216,6 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
                 </div>
             </div>
 
-            {/* Hover Overlay */}
             {isHovered && (
                 <div className="poster-hover-overlay" style={{
                     position: 'absolute',
@@ -198,6 +286,6 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
             `}</style>
         </div>
     );
-};
+});
 
 export default PosterRow;

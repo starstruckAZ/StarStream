@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const StarstreamNav = () => {
@@ -32,19 +33,21 @@ const StarstreamNav = () => {
       borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-        <img
-          src="/assets/images/starstream_logo_new.png"
-          alt="STARSTREAM"
-          className="nav-logo"
-          style={{
-            height: '40px',
-            cursor: 'pointer',
-            filter: 'drop-shadow(0 0 5px rgba(0, 243, 255, 0.2))'
-          }}
-        />
+        <Link to="/">
+          <img
+            src="/assets/images/starstream_logo_new.png"
+            alt="STARSTREAM"
+            className="nav-logo"
+            style={{
+              height: '40px',
+              cursor: 'pointer',
+              filter: 'drop-shadow(0 0 5px rgba(0, 243, 255, 0.2))'
+            }}
+          />
+        </Link>
 
         <ul className="nav-links" style={{ display: 'flex', gap: '25px', fontSize: '0.9rem', fontWeight: 500 }}>
-          <li className="nav-link">Home</li>
+          <li className="nav-link"><Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link></li>
           <li className="nav-link hide-mobile">Originals</li>
           <li className="nav-link">Catalog</li>
           <li className="nav-link hide-mobile">New & Popular</li>
