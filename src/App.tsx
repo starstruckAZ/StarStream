@@ -21,63 +21,24 @@ interface ContentItem {
   type?: 'series' | 'movie'; // Added type for series handling
 }
 
-const MovieCatalog = () => {
-  const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
+const MovieCatalog = ({
+  onPlay,
+  selectedItem,
+  setSelectedItem,
+  handleUnlockCollection,
+  isItemLocked
+}: {
+  onPlay: (item: ContentItem) => void,
+  selectedItem: ContentItem | null,
+  setSelectedItem: (item: ContentItem | null) => void,
+  handleUnlockCollection: (price: number) => void,
+  isItemLocked: (itemId: string) => boolean
+}) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { hasUnlockedCollection, user } = useAuth();
   const audioRef = useRef<HTMLAudioElement>(null);
-  const navigate = useNavigate(); // For series navigation
-
-  const handlePlay = (item: ContentItem) => {
-    if (item.type === 'series') {
-      navigate(`/series/${item.id}`);
-    } else {
-      setSelectedItem(item);
-    }
-  };
 
   const handleIntroEnd = () => {
     setIsLoading(false);
-  };
-
-  const handleUnlockCollection = async (price: number) => {
-    console.log(`Initializing backend checkout for $${price}...`);
-
-    try {
-      // Call our Airtight Secure Netlify Function
-      const response = await fetch('/.netlify/functions/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          price,
-          itemTitle: selectedItem?.title || "Jaron Ikner Collection",
-          userId: user?.id,
-          userEmail: user?.email
-        }),
-      });
-
-      const session = await response.json();
-
-      if (session.error) {
-        throw new Error(session.error);
-      }
-
-      if (session.url) {
-        // Modern, secure redirection directly to the Stripe-hosted URL
-        window.location.href = session.url;
-      } else {
-        throw new Error("Failed to generate checkout URL.");
-      }
-    } catch (e: any) {
-      console.error("Payment initialization failed", e);
-      alert(`Security Error: ${e.message}. \n\nNote: If you are testing locally, make sure you are running 'netlify dev' to support backend functions.`);
-    }
-  };
-
-  const isItemLocked = (itemId: string) => {
-    // Premium IDs that require the "Jaron Ikner Collection" unlock
-    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss', 'continuum', 'moire'];
-    return premiumIds.includes(itemId) && !hasUnlockedCollection('jaron-ikner-collection');
   };
 
   useEffect(() => {
@@ -94,6 +55,7 @@ const MovieCatalog = () => {
   };
 
   const trending = [
+    { id: 'wanp-trending', title: 'WISHES ARE NEVER PERFECT', poster: '/assets/images/official/Wishes Are Never Perfect Banner.png', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
     { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
     { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
     { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
@@ -104,7 +66,7 @@ const MovieCatalog = () => {
   const directorsCut = [
     { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
     { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: 'rd61V01009h7V01eWVrWSET2jrpYr6dCUcBM61KOiDo8t8' }, // Verified ID
-    { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.png', video: '', type: 'series' as const },
+    { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.jpg', video: '', type: 'series' as const },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
     { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: 'D1edzBJ4YNqydGwFPO00oizQ023sQW9DROFK9N02p2ECoE' }, // Updated ID (A)
@@ -117,6 +79,7 @@ const MovieCatalog = () => {
 
   const actionMovies = [
     { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/official/dimension strike thumbnail.png', video: 'bcLmzD4lboqsL93OB1BqrlNbEVtMEXtHHAOMqxY02Jnc' },
+    { id: 'action-hh3', title: 'HIGH HARD 3: HIGH THE HARD WAY', poster: '/assets/images/official/High Hard 3 Thumbnail.jpg', video: 'co9uRH6ZJ01LslfDaOkP4i01xDOZ202IbXnpsAv7bh8ATc' },
     { id: 'action2', title: 'VOID COMBAT', poster: '/assets/images/official/Void Combat Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action3', title: 'MULTIVERSE MERCENARIES', poster: '/assets/images/official/Multiverse Mercenaries Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action4', title: 'PORTAL HOPPERS', poster: '/assets/images/official/Portal Hoppers Thumbnail.png', video: '', isComingSoon: true },
@@ -125,7 +88,7 @@ const MovieCatalog = () => {
   const adultRomance = [
     { id: 'rom1', title: 'FORBIDDEN REALITY', poster: '/assets/images/official/Forbidden Reality Thumbnail.png', video: '', isComingSoon: true },
     { id: 'rom2', title: 'QUANTUM LOVE', poster: '/assets/images/official/Quantum Love.png', video: '', isComingSoon: true },
-    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/last_date.png', video: '' },
+    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/The Last Date Thumbnail.png', video: '' },
     { id: 'rom4', title: 'DATING MY DOPPELGANGER', poster: '/assets/images/official/Dating my Doppelganger Thumbnail.png', video: '', isComingSoon: true },
   ];
 
@@ -200,61 +163,61 @@ const MovieCatalog = () => {
       <StarstreamNav />
       <PremiumPopup />
       <div id="top"></div>
-      <Hero onPlay={() => setSelectedItem(mainFilm)} />
+      <Hero onPlay={() => onPlay(mainFilm)} />
 
       <div style={{ marginTop: '-140px', position: 'relative', zIndex: 20 }}>
         <PosterRow
           title="Trending on Starstream"
           items={trending}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="The Jaron Ikner Collection (Premium Access Only)"
           items={directorsCut}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Original Series"
           items={originalSeries}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Heavy Action & Cinematic Combat"
           items={actionMovies}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Late Night: Forbidden Reality"
           items={adultRomance}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Outrageous Reality"
           items={outrageousReality}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Interdimensional Spectacle"
           items={interdimensionalShows}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="High-Dimensional Comedy"
           items={comedyShows}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         <PosterRow
           title="Starstream Originals"
           items={originals}
-          onSelect={handlePlay}
+          onSelect={onPlay}
         />
 
         {/* Dynamation Recruitment Ad */}
@@ -425,14 +388,65 @@ const MovieCatalog = () => {
 };
 
 const App = () => {
+  const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
+  const { hasUnlockedCollection, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handlePlay = (item: ContentItem) => {
+    if (item.type === 'series') {
+      navigate(`/series/${item.id}`);
+    } else {
+      setSelectedItem(item);
+    }
+  };
+
+  const handleUnlockCollection = async (price: number) => {
+    console.log(`Initializing backend checkout for $${price}...`);
+    try {
+      const response = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          price,
+          itemTitle: selectedItem?.title || "Jaron Ikner Collection",
+          userId: user?.id,
+          userEmail: user?.email
+        }),
+      });
+      const session = await response.json();
+      if (session.error) throw new Error(session.error);
+      if (session.url) {
+        window.location.href = session.url;
+      } else {
+        throw new Error("Failed to generate checkout URL.");
+      }
+    } catch (e: any) {
+      console.error("Payment initialization failed", e);
+      alert(`Security Error: ${e.message}. \n\nNote: If you are testing locally, make sure you are running 'netlify dev' to support backend functions.`);
+    }
+  };
+
+  const isItemLocked = (itemId: string) => {
+    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss', 'continuum', 'moire'];
+    return premiumIds.includes(itemId) && !hasUnlockedCollection('jaron-ikner-collection');
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MovieCatalog />} />
+        <Route path="/" element={
+          <MovieCatalog
+            onPlay={handlePlay}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            handleUnlockCollection={handleUnlockCollection}
+            isItemLocked={isItemLocked}
+          />
+        } />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => console.log('Playing episode:', item)} />} />
+        <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => setSelectedItem(item)} />} />
       </Routes>
     </Router>
   );

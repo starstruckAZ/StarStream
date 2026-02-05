@@ -33,12 +33,13 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
             id: 'cosmic-creatives',
             title: 'Cosmic Creatives',
             description: 'Join hosts Jaron Ikner and Voodooeyes as they warp into the psyches of stars-in-the-making. This interview series explores the journeys, creative processes, and cosmic origins of extraordinary artists.',
-            banner: '/assets/images/official/Cosmic Creatives Thumbnail.png', // Needs upload
+            banner: '/assets/images/official/Cosmic Creatives Thumbnail.png',
             episodes: [
                 {
                     id: 'cc-ep1.1',
                     title: 'Episode 1: Daviphresh',
                     description: 'The Maryvale Wolf himself. Discover how the unique and challenging environment of Maryvale shaped his identity and nurtured his passion for rap.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: 'd02zvTdHBjDoT1c5zwdbU9dLUrG8Fa3ZgRQzqLUSB4gA', // Verified
                     duration: '45m'
                 },
@@ -46,6 +47,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep2.1',
                     title: 'Episode 2: Tay Da Crown',
                     description: 'Straight out of Surprise, Arizona. Tay Da Crown channels his family\'s legacy through his powerful lyrics and expanding fashion empire.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: 'eUwfcBEQTIffTq6xXCsP2jBYkAsYtaRLot9VK5PBZes', // Verified
                     duration: '38m'
                 },
@@ -53,6 +55,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep3',
                     title: 'Episode 3: Rocadopolis',
                     description: 'From the Matthew Henson projects to performing with Ice Cube. Dopo discusses community activism and juggling music with business.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: '3pgmmLDhskTmlndRsITJ8ixMF3yNjH00MuEDbIYbWYtc', // Verified
                     duration: '42m'
                 },
@@ -60,6 +63,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep4',
                     title: 'Episode 4: Antsoul',
                     description: 'An original Cali-creation landing in the Arizona desert. AntSoul unveils the celestial sonnets embedded in his heart.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: '9gJVW1zn402vrtfh00FLWvOkA198j9jyJ3noa01aqxcfN00', // Verified
                     duration: '40m'
                 },
@@ -67,6 +71,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep5',
                     title: 'Episode 5: Ambition',
                     description: 'A multi-talented force from San Diego. We explore her experiences as a female rapper in a male-dominated industry.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: 'szULUbsFb8ss6yCRu00025uqKFUUMp00sHSFKE1bnP7BUU', // Verified
                     duration: '41m'
                 },
@@ -74,6 +79,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep6',
                     title: 'Episode 6: ThatKidMav',
                     description: 'A lyrical odyssey with a nomadic rapper. Explore the interplay between creativity and global personal experience.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: '7x3d7lAmL8LePd1X009uHlYNZq0231QA65NSsygJgy7X4', // Verified
                     duration: '39m'
                 },
@@ -81,6 +87,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep7',
                     title: 'Episode 7: Jaaé',
                     description: 'An intimate look into the unique experiences of navigating the industry as an independent and non-binary artist.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: 'JM2jW7600602nEDWNovvvLFR8emhwaVE47reyz979Z5OE', // Verified
                     duration: '44m'
                 },
@@ -88,6 +95,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                     id: 'cc-ep8',
                     title: 'Episode 8: Wolfzie',
                     description: 'Musician, DJ, and visionary designer behind Homebody Friends. A captivating journey of versatility.',
+                    thumbnail: '/assets/images/official/Cosmic Creatives Thumbnail.png',
                     video: '3pgmmLDhskTmlndRsITJ8ixMF3yNjH00MuEDbIYbWYtc', // Verified
                     duration: '37m'
                 }
@@ -97,13 +105,13 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
             id: 'moire',
             title: 'Moiré',
             description: 'An experimental episodic series causing visual interference patterns in the fabric of reality.',
-            banner: '/assets/images/official/Moire Thumbnail.png', // Needs upload
+            banner: '/assets/images/official/Moire Thumbnail.jpg',
             episodes: [
-                { id: 'm-ep1', title: 'Chapter I', description: 'The interference begins.', video: '01j12K1zr87xFyZHCCVWV4HlfPLFxLKGqri00aPUbX7MA', duration: '5m' }, // Verified
-                { id: 'm-ep2', title: 'Chapter II', description: 'Visual patterns emerge.', video: '85i00FjUgn1OfHLXqPB3RcUPZSBHetgpuod6HxdT97zc', duration: '7m' }, // Verified
-                { id: 'm-ep3', title: 'Chapter III', description: 'Reality distorts.', video: 'T9q35hvWM0001wnFrD5V7IQAKFx6Q1l43yB12n36sr019I', duration: '6m' }, // Verified
-                { id: 'm-ep4', title: 'Chapter IV', description: 'The glitch expands.', video: 'wYRRCNWBws2A700CJtJZ01KmkJqlVLUzYx91yWVxE4n28', duration: '6m' }, // Verified
-                { id: 'm-ep5', title: 'Chapter V', description: 'System failure.', video: 'fgosVuMrmCty6100SYdjZ01101h02c91LaUjDRxHWu7QrLw', duration: '6m' } // Verified
+                { id: 'm-ep1', title: 'Chapter I', description: 'The interference begins.', thumbnail: '/assets/images/official/Moire Thumbnail.jpg', video: '01j12K1zr87xFyZHCCVWV4HlfPLFxLKGqri00aPUbX7MA', duration: '5m' }, // Verified
+                { id: 'm-ep2', title: 'Chapter II', description: 'Visual patterns emerge.', thumbnail: '/assets/images/official/Moire Thumbnail.jpg', video: '85i00FjUgn1OfHLXqPB3RcUPZSBHetgpuod6HxdT97zc', duration: '7m' }, // Verified
+                { id: 'm-ep3', title: 'Chapter III', description: 'Reality distorts.', thumbnail: '/assets/images/official/Moire Thumbnail.jpg', video: 'T9q35hvWM0001wnFrD5V7IQAKFx6Q1l43yB12n36sr019I', duration: '6m' }, // Verified
+                { id: 'm-ep4', title: 'Chapter IV', description: 'The glitch expands.', thumbnail: '/assets/images/official/Moire Thumbnail.jpg', video: 'wYRRCNWBws2A700CJtJZ01KmkJqlVLUzYx91yWVxE4n28', duration: '6m' }, // Verified
+                { id: 'm-ep5', title: 'Chapter V', description: 'System failure.', thumbnail: '/assets/images/official/Moire Thumbnail.jpg', video: 'fgosVuMrmCty6100SYdjZ01101h02c91LaUjDRxHWu7QrLw', duration: '6m' } // Verified
             ]
         }
     };
