@@ -55,9 +55,9 @@ const MovieCatalog = ({
 
   const trending = [
     { id: 'wanp-trending', title: 'WISHES ARE NEVER PERFECT', poster: '/assets/images/official/Wishes Are Never Perfect Banner.png', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
-    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
+    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'sKEAvV66KslcYAaLhohd2v00cZ01KvsruB8O0100L4K5bdI' },
     { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'YZA02rdikzZ60001aiF39bP88es4mUNqlnIm8Cj7IyDkdQ' },
-    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
+    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
     { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/official/The Last Laugh Thumbnail.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
     { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/official/bucketlisting thubnail.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
   ];
@@ -87,7 +87,7 @@ const MovieCatalog = ({
   const adultRomance = [
     { id: 'rom1', title: 'FORBIDDEN REALITY', poster: '/assets/images/official/Forbidden Reality Thumbnail.png', video: '', isComingSoon: true },
     { id: 'rom2', title: 'QUANTUM LOVE', poster: '/assets/images/official/Quantum Love.png', video: '', isComingSoon: true },
-    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/The Last Date Thumbnail.png', video: '' },
+    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/The Last Date Thumbnail.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
     { id: 'rom4', title: 'DATING MY DOPPELGANGER', poster: '/assets/images/official/Dating my Doppelganger Thumbnail.png', video: '', isComingSoon: true },
   ];
 
@@ -104,7 +104,7 @@ const MovieCatalog = ({
 
   const comedyShows = [
     { id: 'comedy1', title: 'VOID OF LAUGHTER', poster: '/assets/images/official/Void Of Laughter Thumbnail.png', video: 'o56rrLeP1AfXbQGQYRTYRUwjuCaLhivEKcAsSHn7jD4' },
-    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/official/Glitch In The Gag Thumbnail.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
+    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/official/Glitch In The Gag Thumbnail.png', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
   ];
 
   const originals = [
