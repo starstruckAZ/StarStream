@@ -33,18 +33,23 @@ const MovieCatalog = ({
   myList: string[];
   onToggleMyList: (id: string) => void;
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [hasPlayedIntro, setHasPlayedIntro] = useState(() => {
+    return sessionStorage.getItem('starstream_intro_played') === 'true';
+  });
+  const [isLoading, setIsLoading] = useState(!hasPlayedIntro);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleIntroEnd = () => {
     setIsLoading(false);
+    setHasPlayedIntro(true);
+    sessionStorage.setItem('starstream_intro_played', 'true');
   };
 
   useEffect(() => {
-    if (!isLoading && audioRef.current) {
+    if (!isLoading && audioRef.current && !hasPlayedIntro) {
       audioRef.current.play().catch((e: any) => console.log("Audio play blocked by browser", e));
     }
-  }, [isLoading]);
+  }, [isLoading, hasPlayedIntro]);
 
   const mainFilm = {
     id: 'wanp',
@@ -94,7 +99,7 @@ const MovieCatalog = ({
   const outrageousReality = [
     { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: 'J5zR4sYaeLIphEUB9dAP00uYwfpFq2O4zNIMS2LpZQs4' }, // Updated ID (E)
     { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'ri8dT5C9CPKcNuQAqtxhthAeteFlbLCIy8aROZ4M4L4' },
-    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: 'S019u1VfcFaCEHJ56TaU3cRd9rAht9qsN43HvFqjh7ww' },
+    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: '8501r2tKlltIlT00FElCUMBKKupfPWsi8hoNSdqNzZN1Q' },
   ];
 
   const interdimensionalShows = [
@@ -155,11 +160,12 @@ const MovieCatalog = ({
         <MuxPlayer
           playbackId="HNSLJVt00QAwWSogvq1S5KyflKc4DxKO9OLk9jCSgRHA"
           autoPlay
-          muted={false}
+          muted
           onEnded={handleIntroEnd}
           style={{ width: '100%', height: '100%' }}
           primaryColor="#00F3FF"
           metadataVideoTitle="Starstream Intro"
+          streamType="on-demand"
         />
         <button
           onClick={handleIntroEnd}

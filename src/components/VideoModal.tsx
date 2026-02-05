@@ -44,7 +44,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
 
     if (!item) return null;
 
-    const INTRO_ID = "eseRbzw3vCBgD37CRk62Jux02KoKO00UJDqCNnWOKxPwM";
+    const INTRO_ID = "HNSLJVt00QAwWSogvq1S5KyflKc4DxKO9OLk9jCSgRHA";
 
     return (
         <div style={{
@@ -92,6 +92,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
                         playbackId={playingIntro ? INTRO_ID : item.video}
                         metadataVideoTitle={playingIntro ? "Starstream Intro" : item.title}
                         autoPlay
+                        muted={playingIntro} // Mute intro for easier autoplay, but main video can be louder
                         onEnded={() => playingIntro && setPlayingIntro(false)}
                         primaryColor="#00F3FF"
                         style={{ width: '100%', height: '100%' }}
