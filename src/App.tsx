@@ -22,17 +22,9 @@ interface ContentItem {
 }
 
 const MovieCatalog = ({
-  onPlay,
-  selectedItem,
-  setSelectedItem,
-  handleUnlockCollection,
-  isItemLocked
+  onPlay
 }: {
-  onPlay: (item: ContentItem) => void,
-  selectedItem: ContentItem | null,
-  setSelectedItem: (item: ContentItem | null) => void,
-  handleUnlockCollection: (price: number) => void,
-  isItemLocked: (itemId: string) => boolean
+  onPlay: (item: ContentItem) => void
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -57,7 +49,7 @@ const MovieCatalog = ({
   const trending = [
     { id: 'wanp-trending', title: 'WISHES ARE NEVER PERFECT', poster: '/assets/images/official/Wishes Are Never Perfect Banner.png', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
     { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
-    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
+    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'YZA02rdikzZ60001aiF39bP88es4mUNqlnIm8Cj7IyDkdQ' },
     { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
     { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/official/The Last Laugh Thumbnail.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
     { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/official/bucketlisting thubnail.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
@@ -65,6 +57,7 @@ const MovieCatalog = ({
 
   const directorsCut = [
     { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
+    { id: 'hh3', title: 'HIGH HARD 3: HIGH THE HARD WAY', poster: '/assets/images/official/High Hard 3 Thumbnail.jpg', video: 'co9uRH6ZJ01LslfDaOkP4i01xDOZ202IbXnpsAv7bh8ATc' },
     { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: 'rd61V01009h7V01eWVrWSET2jrpYr6dCUcBM61KOiDo8t8' }, // Verified ID
     { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.jpg', video: '', type: 'series' as const },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
@@ -79,7 +72,6 @@ const MovieCatalog = ({
 
   const actionMovies = [
     { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/official/dimension strike thumbnail.png', video: 'bcLmzD4lboqsL93OB1BqrlNbEVtMEXtHHAOMqxY02Jnc' },
-    { id: 'action-hh3', title: 'HIGH HARD 3: HIGH THE HARD WAY', poster: '/assets/images/official/High Hard 3 Thumbnail.jpg', video: 'co9uRH6ZJ01LslfDaOkP4i01xDOZ202IbXnpsAv7bh8ATc' },
     { id: 'action2', title: 'VOID COMBAT', poster: '/assets/images/official/Void Combat Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action3', title: 'MULTIVERSE MERCENARIES', poster: '/assets/images/official/Multiverse Mercenaries Thumbnail.png', video: '', isComingSoon: true },
     { id: 'action4', title: 'PORTAL HOPPERS', poster: '/assets/images/official/Portal Hoppers Thumbnail.png', video: '', isComingSoon: true },
@@ -112,7 +104,7 @@ const MovieCatalog = ({
     { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/official/Neon City Noir Thumbnail.png', video: '', isComingSoon: true },
     { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/official/Beyond The Gate Thumbnail.png', video: '', isComingSoon: true },
     { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/official/Void Whisperers Thumbnail.png', video: '', isComingSoon: true },
-    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Legal Reality Thumbnail.png', video: '', isComingSoon: true },
   ];
 
 
@@ -296,13 +288,6 @@ const MovieCatalog = ({
 
       </div>
 
-      <VideoModal
-        item={selectedItem}
-        isLocked={selectedItem ? isItemLocked(selectedItem.id) : false}
-        onUnlock={handleUnlockCollection}
-        onClose={() => setSelectedItem(null)}
-      />
-
       <footer className="starstream-footer" style={{
         padding: '120px 4% 80px',
         borderTop: '1px solid rgba(255,255,255,0.05)',
@@ -427,26 +412,31 @@ const App = () => {
   };
 
   const isItemLocked = (itemId: string) => {
-    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss', 'continuum', 'moire'];
+    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss', 'continuum', 'moire', 'hh3'];
     return premiumIds.includes(itemId) && !hasUnlockedCollection('jaron-ikner-collection');
   };
 
   return (
-    <Routes>
-      <Route path="/" element={
-        <MovieCatalog
-          onPlay={handlePlay}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          handleUnlockCollection={handleUnlockCollection}
-          isItemLocked={isItemLocked}
-        />
-      } />
-      <Route path="/success" element={<Success />} />
-      <Route path="/cancel" element={<Cancel />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => setSelectedItem(item)} />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={
+          <MovieCatalog
+            onPlay={handlePlay}
+          />
+        } />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/series/:seriesId" element={<SeriesPage onPlay={handlePlay} />} />
+      </Routes>
+
+      <VideoModal
+        item={selectedItem}
+        isLocked={selectedItem ? isItemLocked(selectedItem.id) : false}
+        onUnlock={handleUnlockCollection}
+        onClose={() => setSelectedItem(null)}
+      />
+    </>
   );
 };
 
