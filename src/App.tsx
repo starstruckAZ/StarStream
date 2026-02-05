@@ -103,11 +103,11 @@ const MovieCatalog = () => {
 
   const directorsCut = [
     { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
-    { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: '', isComingSoon: true },
+    { id: 'continuum', title: 'CONTINUUM', poster: '/assets/images/official/Continuum Thumbnail.jpg', video: '', isComingSoon: true }, // Needs ID
     { id: 'moire', title: 'MOIREE', poster: '/assets/images/official/Moire Thumbnail.png', video: '', type: 'series' as const },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
-    { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: 'D1edzBJ4YNqydGwFPO00oizQ023sQW9DROFK9N02p2ECoE' }, // Updated ID (A)
     { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/official/Paradox Hotel Thumbnail.jpeg', video: '2I5USjY02GmhGXNTfzm89sAdSlNG4prlp9w8ZUtY9ecA' },
   ];
 
@@ -130,7 +130,7 @@ const MovieCatalog = () => {
   ];
 
   const outrageousReality = [
-    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: '7OdWpxHS7sqtKwCbsAlw2dZ2YHR5wK1Pcv01lIAp5FhU' },
+    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: 'J5zR4sYaeLIphEUB9dAP00uYwfpFq2O4zNIMS2LpZQs4' }, // Updated ID (E)
     { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'ri8dT5C9CPKcNuQAqtxhthAeteFlbLCIy8aROZ4M4L4' },
     { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: 'S019u1VfcFaCEHJ56TaU3cRd9rAht9qsN43HvFqjh7ww' },
   ];
