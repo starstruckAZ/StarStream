@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import MuxPlayer from '@mux/mux-player-react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
@@ -432,23 +432,21 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={
-          <MovieCatalog
-            onPlay={handlePlay}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-            handleUnlockCollection={handleUnlockCollection}
-            isItemLocked={isItemLocked}
-          />
-        } />
-        <Route path="/success" element={<Success />} />
-        <Route path="/cancel" element={<Cancel />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => setSelectedItem(item)} />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={
+        <MovieCatalog
+          onPlay={handlePlay}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          handleUnlockCollection={handleUnlockCollection}
+          isItemLocked={isItemLocked}
+        />
+      } />
+      <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/series/:seriesId" element={<SeriesPage onPlay={(item) => setSelectedItem(item)} />} />
+    </Routes>
   );
 };
 
