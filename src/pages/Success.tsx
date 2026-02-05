@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import netlifyIdentity from 'netlify-identity-widget';
 
 const Success: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Mark as unlocked locally once we arrive here
-        localStorage.setItem('starstream_directors_cut_unlocked', 'true');
+        // Force refresh the user token to get the new app_metadata from the webhook
+        const user = netlifyIdentity.currentUser();
+        if (user) {
+            (user as any).jwt(true).then(() => {
+                console.log('User token refreshed, permissions updated.');
+            });
+        }
 
         // Redirect back to home after a few seconds
         const timer = setTimeout(() => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 interface PaywallProps {
     itemTitle: string;
@@ -9,6 +10,7 @@ interface PaywallProps {
 const Paywall: React.FC<PaywallProps> = ({ itemTitle, onUnlock, onClose }) => {
     const [customPrice, setCustomPrice] = useState<string>('5');
     const [isProcessing, setIsProcessing] = useState(false);
+    const { isLoggedIn, login } = useAuth();
 
     const priceOptions = [1, 5, 10, 20];
 
@@ -107,26 +109,47 @@ const Paywall: React.FC<PaywallProps> = ({ itemTitle, onUnlock, onClose }) => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                    <button
-                        onClick={handleUnlock}
-                        disabled={isProcessing}
-                        style={{
-                            padding: '18px 60px',
-                            backgroundColor: 'var(--primary-color)',
-                            color: '#000',
-                            fontWeight: 900,
-                            fontSize: '1rem',
-                            borderRadius: '2px',
-                            border: 'none',
-                            cursor: 'pointer',
-                            textTransform: 'uppercase',
-                            letterSpacing: '2px',
-                            boxShadow: '0 0 30px rgba(0, 243, 255, 0.3)',
-                            opacity: isProcessing ? 0.7 : 1
-                        }}
-                    >
-                        {isProcessing ? 'Processing...' : 'Unlock Collection'}
-                    </button>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleUnlock}
+                            disabled={isProcessing}
+                            style={{
+                                padding: '18px 60px',
+                                backgroundColor: 'var(--primary-color)',
+                                color: '#000',
+                                fontWeight: 900,
+                                fontSize: '1rem',
+                                borderRadius: '2px',
+                                border: 'none',
+                                cursor: 'pointer',
+                                textTransform: 'uppercase',
+                                letterSpacing: '2px',
+                                boxShadow: '0 0 30px rgba(0, 243, 255, 0.3)',
+                                opacity: isProcessing ? 0.7 : 1
+                            }}
+                        >
+                            {isProcessing ? 'Processing...' : 'Unlock Collection'}
+                        </button>
+                    ) : (
+                        <button
+                            onClick={login}
+                            style={{
+                                padding: '18px 60px',
+                                backgroundColor: 'var(--primary-color)',
+                                color: '#000',
+                                fontWeight: 900,
+                                fontSize: '1rem',
+                                borderRadius: '2px',
+                                border: 'none',
+                                cursor: 'pointer',
+                                textTransform: 'uppercase',
+                                letterSpacing: '2px',
+                                boxShadow: '0 0 30px rgba(0, 243, 255, 0.3)'
+                            }}
+                        >
+                            Sign In to Unlock
+                        </button>
+                    )}
 
                     <button
                         onClick={onClose}

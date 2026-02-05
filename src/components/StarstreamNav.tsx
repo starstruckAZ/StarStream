@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const StarstreamNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isLoggedIn, login, logout, user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,21 +54,60 @@ const StarstreamNav = () => {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }} className="hide-mobile">🔍</div>
-        <div style={{ cursor: 'pointer', fontSize: '1.2rem', opacity: 0.8 }} className="hide-mobile">🔔</div>
-        <div style={{
-          width: '35px',
-          height: '35px',
-          borderRadius: '4px',
-          overflow: 'hidden',
-          cursor: 'pointer',
-          border: '2px solid rgba(255,255,255,0.1)'
-        }}>
-          <img
-            src="/assets/images/demon_time_clean_v2.png"
-            alt="Profile"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
+
+        {isLoggedIn ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }} className="hide-mobile">
+              AGENT: {user?.email?.split('@')[0].toUpperCase()}
+            </span>
+            <div
+              onClick={logout}
+              style={{
+                width: '35px',
+                height: '35px',
+                borderRadius: '4px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                border: '2px solid var(--primary-color)',
+                boxShadow: '0 0 10px rgba(0, 243, 255, 0.3)'
+              }}>
+              <img
+                src="/assets/images/demon_time_clean_v2.png"
+                alt="Profile"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+            <button
+              onClick={logout}
+              style={{
+                background: 'none',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: '#fff',
+                fontSize: '0.7rem',
+                padding: '5px 10px',
+                cursor: 'pointer',
+                borderRadius: '2px',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}>Sign Out</button>
+          </div>
+        ) : (
+          <button
+            onClick={login}
+            style={{
+              backgroundColor: 'var(--primary-color)',
+              color: '#000',
+              fontWeight: 800,
+              fontSize: '0.8rem',
+              padding: '8px 20px',
+              border: 'none',
+              borderRadius: '2px',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              boxShadow: '0 0 15px rgba(0, 243, 255, 0.4)'
+            }}>Sign In</button>
+        )}
       </div>
 
       <style>{`

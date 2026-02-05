@@ -12,7 +12,7 @@ const handler: Handler = async (event) => {
     }
 
     try {
-        const { price, itemTitle } = JSON.parse(event.body || '{}');
+        const { price, itemTitle, userId, userEmail } = JSON.parse(event.body || '{}');
 
         if (!price || isNaN(price)) {
             return {
@@ -24,6 +24,12 @@ const handler: Handler = async (event) => {
         // Create a Stripe Checkout Session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
+            customer_email: userEmail, // Pre-fill email if available
+            client_reference_id: userId, // Link to Netlify User ID
+            metadata: {
+                userId,
+                collectionId: 'jaron-ikner-collection' // Specify what is being unlocked
+            },
             line_items: [
                 {
                     price_data: {
@@ -31,15 +37,14 @@ const handler: Handler = async (event) => {
                         product_data: {
                             name: itemTitle || 'Starstream: Jaron Ikner Collection',
                             description: 'One-time payment to unlock the full Jaron Ikner Director\'s Cut collection permanently.',
-                            images: ['https://starstream.tv/assets/images/starstream_logo_new.png'], // Link to your logo
+                            images: ['https://starstream.tv/assets/images/starstream_logo_new.png'],
                         },
-                        unit_amount: Math.round(price * 100), // Stripe expects amounts in cents
+                        unit_amount: Math.round(price * 100),
                     },
                     quantity: 1,
                 },
             ],
             mode: 'payment',
-            // In a real app, these would be your actual success/cancel pages
             success_url: `${process.env.SITE_URL || 'http://localhost:5173'}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.SITE_URL || 'http://localhost:5173'}/cancel`,
         });

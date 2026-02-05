@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import MuxPlayer from '@mux/mux-player-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import StarstreamNav from './components/StarstreamNav';
 import Hero from './components/Hero';
 import PosterRow from './components/PosterRow';
@@ -19,13 +20,8 @@ interface ContentItem {
 const MovieCatalog = () => {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [collectionUnlocked, setCollectionUnlocked] = useState(false);
+  const { hasUnlockedCollection, user } = useAuth();
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  useEffect(() => {
-    const isUnlocked = localStorage.getItem('starstream_directors_cut_unlocked') === 'true';
-    setCollectionUnlocked(isUnlocked);
-  }, []);
 
   const handleIntroEnd = () => {
     setIsLoading(false);
@@ -41,7 +37,9 @@ const MovieCatalog = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           price,
-          itemTitle: selectedItem?.title || "Jaron Ikner Collection"
+          itemTitle: selectedItem?.title || "Jaron Ikner Collection",
+          userId: user?.id,
+          userEmail: user?.email
         }),
       });
 
@@ -65,12 +63,12 @@ const MovieCatalog = () => {
 
   const isItemLocked = (itemId: string) => {
     const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss'];
-    return premiumIds.includes(itemId) && !collectionUnlocked;
+    return premiumIds.includes(itemId) && !hasUnlockedCollection('jaron-ikner-collection');
   };
 
   useEffect(() => {
     if (!isLoading && audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Audio play blocked by browser", e));
+      audioRef.current.play().catch((e: any) => console.log("Audio play blocked by browser", e));
     }
   }, [isLoading]);
 
