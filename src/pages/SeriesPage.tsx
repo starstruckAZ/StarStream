@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import StarstreamNav from '../components/StarstreamNav';
 
 interface Episode {
@@ -21,7 +21,6 @@ interface Series {
 
 const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
     const { seriesId } = useParams();
-    const navigate = useNavigate();
 
     // Scroll to top on load
     useEffect(() => {
@@ -172,7 +171,7 @@ const SeriesPage: React.FC<{ onPlay: (item: any) => void }> = ({ onPlay }) => {
                 }}>Episodes</h2>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {series.episodes.map((ep, index) => (
+                    {series.episodes.map((ep) => (
                         <div
                             key={ep.id}
                             onClick={() => onPlay({ ...ep, poster: series.banner })} // Reuse banner as poster for now
