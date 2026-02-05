@@ -16,7 +16,7 @@ interface ContentItem {
   id: string;
   title: string;
   poster: string;
-  video: string;
+  video?: string;
   isComingSoon?: boolean;
   type?: 'series' | 'movie'; // Added type for series handling
 }
