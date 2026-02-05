@@ -24,10 +24,10 @@ const req = https.request(options, (res) => {
             if (response.data) {
                 response.data.forEach(asset => {
                     const publicPlaybackId = asset.playback_ids ? asset.playback_ids.find(p => p.policy === 'public') : null;
-                    console.log(`TITLE: ${asset.test ? '[TEST] ' : ''}${asset.passthrough || 'Untitled'}`);
-                    // If passthrough is empty, let's try to see if there's an original filename or something
-                    // Actually, let's just dump the whole object for a sec if it's new
+                    const duration = asset.duration ? `${Math.floor(asset.duration / 60)}m ${Math.floor(asset.duration % 60)}s` : 'N/A';
+                    console.log(`TITLE: ${asset.test ? '[TEST] ' : ''}${asset.passthrough || asset.metadata?.video_title || 'Untitled'}`);
                     console.log(`ID: ${asset.id}`);
+                    console.log(`DURATION: ${duration}`);
                     console.log(`PLAYBACK: ${publicPlaybackId ? publicPlaybackId.id : 'NONE'}`);
                     console.log('---');
                 });

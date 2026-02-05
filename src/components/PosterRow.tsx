@@ -89,6 +89,7 @@ const Poster: React.FC<{ item: ContentItem; onSelect: (item: ContentItem) => voi
             <img
                 src={item.poster}
                 alt={item.title}
+                loading="lazy"
                 style={{
                     width: '100%',
                     height: '100%',

@@ -64,7 +64,7 @@ const MovieCatalog = () => {
   };
 
   const isItemLocked = (itemId: string) => {
-    const premiumIds = ['madness', 'tfp', 'mental', 'paradox'];
+    const premiumIds = ['madness', 'tfp', 'mental', 'paradox', 'wtss'];
     return premiumIds.includes(itemId) && !collectionUnlocked;
   };
 
@@ -78,18 +78,19 @@ const MovieCatalog = () => {
     id: 'wanp',
     title: 'Wishes Are Never Perfect',
     poster: '/assets/images/the_360_view.jpg',
-    video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' // Mux Playback ID
+    video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' // Mux Playback ID (Full Feature)
   };
 
   const trending = [
     { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/demon_time_thumb.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
-    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/impossible_colors.jpg', video: '1OHMtmuGhgvaYAFFXxeb00ekFvztePCSWZEBttB5TDZc' },
+    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/impossible_colors.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
     { id: 'sn', title: 'SEASONED', poster: '/assets/images/seasoned_thumb_official.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
     { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/last_laugh_thumb.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
     { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/bucketlisting_thumb_official.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
   ];
 
   const directorsCut = [
+    { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/show_1.png', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/madness_thumb.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/thanks_for_playing_thumb.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
     { id: 'mental', title: 'MENTAL', poster: '/assets/images/mental_thumb.jpg', video: '' },
@@ -111,40 +112,35 @@ const MovieCatalog = () => {
   ];
 
   const outrageousReality = [
-    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/branding/ghost_hunting.png', video: '', isComingSoon: true },
-    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/branding/toilet_racing.png', video: '', isComingSoon: true },
-    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/branding/cooking_chaos.png', video: '', isComingSoon: true },
-    { id: 'extreme3', title: 'BURGER KING OF THE VOID', poster: '/assets/images/branding/burger_king.png', video: '', isComingSoon: true },
+    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/show_2.png', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
+    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/show_3.png', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
+    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/show_4.png', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
   ];
 
-  const extremeMultiverse = [
-    { id: 'extreme1', title: 'ELDERLY SKATE EXTREME', poster: '/assets/images/branding/extreme_skate.png', video: '', isComingSoon: true },
-    { id: 'extreme2', title: 'CAT FIGHT: CLAW OF REALITY', poster: '/assets/images/branding/cat_fight.png', video: '', isComingSoon: true },
-    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/branding/stank_show.png', video: '', isComingSoon: true },
-    { id: 'bb', title: 'STARSTREAM SPORT: BUBBLE WRAP', poster: '/assets/images/branding/bubble_wrap.png', video: '', isComingSoon: true },
+  const interdimensionalShows = [
+    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/show_5.png', video: 'sKEAvV66KslcYAaLhohd2v00cZ01KvsruB8O0100L4K5bdI' },
+    { id: 'bb', title: "Addy-O's presents: The Popper Bowl", poster: '/assets/images/show_6.png', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
   ];
 
   const comedyShows = [
-    { id: 'comedy1', title: 'JARON IKNER: VOID OF LAUGHTER', poster: '/assets/images/branding/comedy_void.png', video: '', isComingSoon: true },
-    { id: 'comedy2', title: 'ADDY-OS LIVE', poster: '/assets/images/branding/addy_os.png', video: '', isComingSoon: true },
-    { id: 'comedy3', title: 'MULTIVERSE OPEN MIC', poster: '/assets/images/branding/open_mic.png', video: '', isComingSoon: true },
-    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/branding/glitch_gag.png', video: '', isComingSoon: true },
+    { id: 'comedy1', title: 'VOID OF LAUGHTER', poster: '/assets/images/show_7.png', video: 'o56rrLeP1AfXbQGQYRTYRUwjuCaLhivEKcAsSHn7jD4' },
+    { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/show_8.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
   ];
 
   const originals = [
-    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/branding/neon_noir.png', video: '', isComingSoon: true },
-    { id: 'realm', title: 'QUANTUM REALM', poster: '/assets/images/branding/quantum_realm.png', video: '', isComingSoon: true },
-    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/branding/beyond_gate.png', video: '', isComingSoon: true },
-    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/branding/void_whisperers.png', video: '', isComingSoon: true },
-    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/branding/caul_raul.png', video: '', isComingSoon: true },
+    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/show_9.png', video: '', isComingSoon: true },
+    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/show_10.png', video: '', isComingSoon: true },
+    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/show_11.png', video: '', isComingSoon: true },
+    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/show_12.png', video: '', isComingSoon: true },
   ];
 
   const multiverse = [
-    { id: 'tech', title: 'CHRONO-TECH WEEKLY', poster: '/assets/images/branding/chrono_tech.png', video: '', isComingSoon: true },
+    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/the_360_view.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
+    { id: 'tech', title: 'CHRONO-TECH WEEKLY', poster: '/assets/images/show_13.png', video: '', isComingSoon: true },
     { id: 'desert', title: 'THE SILENT WASTES', poster: '/assets/images/branding/silent_wastes.png', video: '', isComingSoon: true },
     { id: 'cf', title: 'CHRONOFLEX: SYNCHRONIZE', poster: '/assets/images/branding/chronoflex.png', video: '/assets/videos/chronoflex_ad.mp4' },
     { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
-    { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/branding/niraj_unfiltered.png', video: '/assets/videos/wanp_trailer.mp4' },
+    { id: '360_v2', title: 'NORAJ UNFILTERED', poster: '/assets/images/wanp_clean_wide.png', video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' },
   ];
 
   if (isLoading) {
@@ -226,8 +222,8 @@ const MovieCatalog = () => {
         />
 
         <PosterRow
-          title="Extreme Multiverse Sports"
-          items={extremeMultiverse}
+          title="Interdimensional Spectacle"
+          items={interdimensionalShows}
           onSelect={(item) => setSelectedItem(item as ContentItem)}
         />
 
