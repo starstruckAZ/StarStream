@@ -98,12 +98,12 @@ const MovieCatalog = ({
 
   const outrageousReality = [
     { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: 'J5zR4sYaeLIphEUB9dAP00uYwfpFq2O4zNIMS2LpZQs4' }, // Updated ID (E)
-    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'ri8dT5C9CPKcNuQAqtxhthAeteFlbLCIy8aROZ4M4L4' },
+    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: '0201StgVGBIbXUcEQ6aMHp2siuEcrEw3a3vf01Q5SjyDgA' },
     { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: '8501r2tKlltIlT00FElCUMBKKupfPWsi8hoNSdqNzZN1Q' },
   ];
 
   const interdimensionalShows = [
-    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/official/STANK The Musical Thumbnail.png', video: 'sKEAvV66KslcYAaLhohd2v00cZ01KvsruB8O0100L4K5bdI' },
+    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/official/STANK The Musical Thumbnail.png', video: 'OzFAUB4JawjfEPQOhgIwn9F2VqawQpp1H9IiADFzESQ' },
     { id: 'bb', title: "Addy-O's presents: The Popper Bowl", poster: "/assets/images/official/Addy's O Presents The Popper Bowl Thumbnail.png", video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
   ];
 
@@ -160,7 +160,7 @@ const MovieCatalog = ({
         <MuxPlayer
           playbackId="HNSLJVt00QAwWSogvq1S5KyflKc4DxKO9OLk9jCSgRHA"
           autoPlay
-          muted
+          muted={false}
           onEnded={handleIntroEnd}
           style={{ width: '100%', height: '100%' }}
           primaryColor="#00F3FF"

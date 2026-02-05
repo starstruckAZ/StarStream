@@ -24,22 +24,9 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
         setPlayingIntro(true);
     }, [item]);
 
-    // Attempt automatic fullscreen when playback starts
+    // Automatic fullscreen removed as requested
     useEffect(() => {
-        if (!isLocked && playerRef.current) {
-            const player = playerRef.current;
-            const attemptFullscreen = () => {
-                if (player.requestFullscreen) {
-                    player.requestFullscreen().catch(() => {
-                        console.log("Fullscreen blocked by browser policy.");
-                    });
-                }
-            };
-
-            // Short delay to ensure player is ready
-            const timer = setTimeout(attemptFullscreen, 500);
-            return () => clearTimeout(timer);
-        }
+        // Fullscreen logic disabled
     }, [isLocked, playingIntro, item]);
 
     if (!item) return null;
@@ -92,7 +79,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ item, isLocked, onUnlock, onClo
                         playbackId={playingIntro ? INTRO_ID : item.video}
                         metadataVideoTitle={playingIntro ? "Starstream Intro" : item.title}
                         autoPlay
-                        muted={playingIntro} // Mute intro for easier autoplay, but main video can be louder
+                        muted={false} // Unmuted as requested, interaction required for unmuted autoplay
                         onEnded={() => playingIntro && setPlayingIntro(false)}
                         primaryColor="#00F3FF"
                         style={{ width: '100%', height: '100%' }}
