@@ -77,66 +77,66 @@ const MovieCatalog = () => {
   const mainFilm = {
     id: 'wanp',
     title: 'Wishes Are Never Perfect',
-    poster: '/assets/images/the_360_view.jpg',
+    poster: '/assets/images/official/Wishes Are Never Perfect Banner.png',
     video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' // Mux Playback ID (Full Feature)
   };
 
   const trending = [
-    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/demon_time_thumb.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
-    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/impossible_colors.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
-    { id: 'sn', title: 'SEASONED', poster: '/assets/images/seasoned_thumb_official.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
-    { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/last_laugh_thumb.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
-    { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/bucketlisting_thumb_official.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
+    { id: 'dt', title: 'DEMON TIME', poster: '/assets/images/official/Demon time thumbnial.jpg', video: 'z9yF8SClM8Z02b2mg01wPs6dbKJ81z1CFaybRRFcIQiBM' },
+    { id: 'ic', title: 'IMPOSSIBLE COLORS', poster: '/assets/images/official/Impossible Colors Thumbnail.jpg', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
+    { id: 'sn', title: 'SEASONED', poster: '/assets/images/official/Seasoned Thumbnail.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'tll', title: 'THE LAST LAUGH', poster: '/assets/images/official/The Last Laugh Thumbnail.jpg', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
+    { id: 'bl', title: 'BUCKETLISTING', poster: '/assets/images/official/bucketlisting thubnail.jpg', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
   ];
 
   const directorsCut = [
-    { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/show_1.png', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
-    { id: 'madness', title: 'MADNESS', poster: '/assets/images/madness_thumb.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
-    { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/thanks_for_playing_thumb.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
-    { id: 'mental', title: 'MENTAL', poster: '/assets/images/mental_thumb.jpg', video: '' },
-    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/paradox_hotel_thumb.jpeg', video: 'xByOSvrZKRbdqtCy01G7v00S56WX4GaRsxxc4IzL6k02SU' },
+    { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
+    { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
+    { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
+    { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: '' },
+    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/official/Paradox Hotel Thumbnail.jpeg', video: 'xByOSvrZKRbdqtCy01G7v00S56WX4GaRsxxc4IzL6k02SU' },
   ];
 
   const actionMovies = [
-    { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/dimension_strike_official.png', video: '', isComingSoon: true },
-    { id: 'action2', title: 'VOID COMBAT', poster: '/assets/images/void_combat_official.png', video: '', isComingSoon: true },
-    { id: 'action3', title: 'MULTIVERSE MERCENARIES', poster: '/assets/images/branding/merc_war.png', video: '', isComingSoon: true },
-    { id: 'action4', title: 'PORTAL HOPPERS', poster: '/assets/images/branding/portal_hoppers.png', video: '', isComingSoon: true },
+    { id: 'action1', title: 'DIMENSION STRIKE', poster: '/assets/images/official/dimension strike thumbnail.png', video: '', isComingSoon: true },
+    { id: 'action2', title: 'VOID COMBAT', poster: '/assets/images/official/Void Combat Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'action3', title: 'MULTIVERSE MERCENARIES', poster: '/assets/images/official/Multiverse Mercenaries Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'action4', title: 'PORTAL HOPPERS', poster: '/assets/images/official/Portal Hoppers Thumbnail.png', video: '', isComingSoon: true },
   ];
 
   const adultRomance = [
-    { id: 'rom1', title: 'FORBIDDEN REALITY', poster: '/assets/images/branding/forbidden_reality.png', video: '', isComingSoon: true },
-    { id: 'rom2', title: 'QUANTUM LOVE', poster: '/assets/images/branding/quantum_love.png', video: '', isComingSoon: true },
-    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/branding/last_date.png', video: '', isComingSoon: true },
-    { id: 'rom4', title: 'DATING MY DOPPELGANGER', poster: '/assets/images/branding/dating_monster.png', video: '', isComingSoon: true },
+    { id: 'rom1', title: 'FORBIDDEN REALITY', poster: '/assets/images/official/Forbidden Reality Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'rom2', title: 'QUANTUM LOVE', poster: '/assets/images/official/Quantum Love.png', video: '', isComingSoon: true },
+    { id: 'rom3', title: 'THE LAST DATE', poster: '/assets/images/official/last_date.png', video: '', isComingSoon: true },
+    { id: 'rom4', title: 'DATING MY DOPPELGANGER', poster: '/assets/images/official/Dating my Doppelganger Thumbnail.png', video: '', isComingSoon: true },
   ];
 
   const outrageousReality = [
-    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/show_2.png', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
-    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/show_3.png', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
-    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/show_4.png', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
+    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
+    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
   ];
 
   const interdimensionalShows = [
-    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/show_5.png', video: 'sKEAvV66KslcYAaLhohd2v00cZ01KvsruB8O0100L4K5bdI' },
-    { id: 'bb', title: "Addy-O's presents: The Popper Bowl", poster: '/assets/images/show_6.png', video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
+    { id: 'extreme4', title: 'STANK: THE MUSICAL', poster: '/assets/images/official/STANK The Musical Thumbnail.png', video: 'sKEAvV66KslcYAaLhohd2v00cZ01KvsruB8O0100L4K5bdI' },
+    { id: 'bb', title: "Addy-O's presents: The Popper Bowl", poster: "/assets/images/official/Addy's O Presents The Popper Bowl Thumbnail.png", video: 'YVy01BSIBfmXNE6ocn02I01g02100ReY4YYMuy9w8mwwbsZE' },
   ];
 
   const comedyShows = [
-    { id: 'comedy1', title: 'VOID OF LAUGHTER', poster: '/assets/images/show_7.png', video: 'o56rrLeP1AfXbQGQYRTYRUwjuCaLhivEKcAsSHn7jD4' },
+    { id: 'comedy1', title: 'VOID OF LAUGHTER', poster: '/assets/images/official/Void Of Laughter Thumbnail.png', video: 'o56rrLeP1AfXbQGQYRTYRUwjuCaLhivEKcAsSHn7jD4' },
     { id: 'comedy4', title: 'GLITCH IN THE GAG', poster: '/assets/images/show_8.png', video: 'nB6pUoB3yRYsEsvC202pRTk6B5aB5mgFlMlggDkBFoo00' },
   ];
 
   const originals = [
-    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/show_9.png', video: '', isComingSoon: true },
-    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/show_10.png', video: '', isComingSoon: true },
-    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/show_11.png', video: '', isComingSoon: true },
-    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/show_12.png', video: '', isComingSoon: true },
+    { id: 'noir', title: 'NEON CITY NOIR', poster: '/assets/images/official/Neon City Noir Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'portal', title: 'BEYOND THE GATE', poster: '/assets/images/official/Beyond The Gate Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'horror', title: 'VOID WHISPERERS', poster: '/assets/images/official/Void Whisperers Thumbnail.png', video: '', isComingSoon: true },
+    { id: 'legal', title: 'CAUL RAUL: LEGAL REALITY', poster: '/assets/images/official/Caul Raul Thumbnail.png', video: '', isComingSoon: true },
   ];
 
   const multiverse = [
-    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/the_360_view.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
-    { id: 'tech', title: 'CHRONO-TECH WEEKLY', poster: '/assets/images/show_13.png', video: '', isComingSoon: true },
+    { id: 'view360', title: 'THE 360 VIEW', poster: '/assets/images/official/The 360 View Thumbnail.jpg', video: 'Y4eTqJ4NoekYw00ZNHBnnT4zUCnO00WTulowAWzj00WjZg' },
+    { id: 'tech', title: 'CHRONO-TECH WEEKLY', poster: '/assets/images/official/Chrono Tech Thumbnail.png', video: '', isComingSoon: true },
     { id: 'desert', title: 'THE SILENT WASTES', poster: '/assets/images/branding/silent_wastes.png', video: '', isComingSoon: true },
     { id: 'cf', title: 'CHRONOFLEX: SYNCHRONIZE', poster: '/assets/images/branding/chronoflex.png', video: '/assets/videos/chronoflex_ad.mp4' },
     { id: 'sn_old', title: 'SEASONED (CLASSIC)', poster: '/assets/images/branding/seasoned_classic.png', video: '/assets/videos/seasoned_trailer.mp4' },
