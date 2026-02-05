@@ -78,7 +78,7 @@ const MovieCatalog = () => {
     id: 'wanp',
     title: 'Wishes Are Never Perfect',
     poster: '/assets/images/official/Wishes Are Never Perfect Banner.png',
-    video: 'ZkiqfuLAaZgjqd02hZZPNXF02Hrmuxbuy3O1fsRu02d7lw' // Mux Playback ID (Full Feature)
+    video: 'gx7opN56kd8eYQtam6HRuUslYw2p6F3nEUM7GxPBX48' // Mux Playback ID (Wishes Are Never Perfect - 70m)
   };
 
   const trending = [
@@ -90,11 +90,11 @@ const MovieCatalog = () => {
   ];
 
   const directorsCut = [
-    { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' },
+    { id: 'wtss', title: 'WHEN THE SUN SETS', poster: '/assets/images/official/When The Sun Sets Thumbnail.jpg', video: 'gx7opN56kd8eYQtam6HRuUslYw2p6F3nEUM7GxPBX48' },
     { id: 'madness', title: 'MADNESS', poster: '/assets/images/official/Madness Thumbnail.jpg', video: '1ehcQBew1Ohr9VPPp1wahZoxMnK00BuGv29EoCqh9eyk' },
     { id: 'tfp', title: 'THANKS FOR PLAYING', poster: '/assets/images/official/Thanks For Playing Thumbnail.webp', video: 'UibDf00WSMbuYcR92iX9sEJ9uvHStZJZw2Urkg53Rfvw' },
-    { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: '' },
-    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/official/Paradox Hotel Thumbnail.jpeg', video: 'xByOSvrZKRbdqtCy01G7v00S56WX4GaRsxxc4IzL6k02SU' },
+    { id: 'mental', title: 'MENTAL', poster: '/assets/images/official/Mental thumbnail.jpg', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'paradox', title: 'PARADOX HOTEL', poster: '/assets/images/official/Paradox Hotel Thumbnail.jpeg', video: '2I5USjY02GmhGXNTfzm89sAdSlNG4prlp9w8ZUtY9ecA' },
   ];
 
   const actionMovies = [
@@ -112,9 +112,9 @@ const MovieCatalog = () => {
   ];
 
   const outrageousReality = [
-    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: '7M00lmEu00pRdCN9FPJajYinvDR9F02l2ZjsSuwkRGjomQ' },
-    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'nvCffYy1kLkqIV1q006Esdds8yefqEm7KQNBNA8GXHDc' },
-    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: 'jxNm73LESV25Apxjejc2SK8fF0000cxal6eCss76BeVjk' },
+    { id: 'reality2', title: 'GHOST HUNTING WITH GLITCHES', poster: '/assets/images/official/Ghost Hunting With Glitches.png', video: '7OdWpxHS7sqtKwCbsAlw2dZ2YHR5wK1Pcv01lIAp5FhU' },
+    { id: 'reality3', title: 'ULTIMATE TOILET RACING', poster: '/assets/images/official/Ultimate Toilet Racing Thumbnail.png', video: 'ri8dT5C9CPKcNuQAqtxhthAeteFlbLCIy8aROZ4M4L4' },
+    { id: 'reality4', title: 'KITCHEN CHAOS: QUANTUM EDITION', poster: '/assets/images/official/Kitchen Chaos Thumbnail.png', video: 'S019u1VfcFaCEHJ56TaU3cRd9rAht9qsN43HvFqjh7ww' },
   ];
 
   const interdimensionalShows = [
