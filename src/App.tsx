@@ -303,8 +303,18 @@ const MovieCatalog = ({
       </div>
 
       {/* Dynamation Recruitment Ad */}
+      <div style={{ margin: '100px 4% 0', textAlign: 'center' }}>
+        <h2 style={{
+          fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+          fontWeight: 900,
+          color: '#fff',
+          textTransform: 'uppercase',
+          letterSpacing: '6px',
+          marginBottom: '50px'
+        }}>DYNAMATION INDUSTRIES IS HERE FOR YOU</h2>
+      </div>
       <div className="recruitment-ad" style={{
-        margin: '100px 4%',
+        margin: '0 4% 100px',
         padding: '80px',
         background: 'rgba(10, 10, 10, 0.8)',
         backdropFilter: 'blur(20px)',

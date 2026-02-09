@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import MuxPlayer from '@mux/mux-player-react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import SkeletonPoster from './SkeletonPoster';
+
+// Lazy load MuxPlayer - only loads when user hovers on a poster
+const MuxPlayer = lazy(() => import('@mux/mux-player-react'));
 
 interface ContentItem {
     id: string;
@@ -278,15 +280,28 @@ const Poster = React.memo(({
                     height: '100%',
                     animation: 'fadeIn 0.3s ease-out'
                 }}>
-                    <MuxPlayer
-                        playbackId={item.video}
-                        autoPlay
-                        muted
-                        loop
-                        style={{ width: '100%', height: '100%' }}
-                        primaryColor="#00F3FF"
-                        streamType="on-demand"
-                    />
+                    <Suspense fallback={
+                        <div style={{
+                            width: '100%',
+                            height: '100%',
+                            background: 'linear-gradient(45deg, #0a0a0a, #1a1a1a)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <div style={{ color: 'var(--primary-color)', fontSize: '0.8rem' }}>Loading...</div>
+                        </div>
+                    }>
+                        <MuxPlayer
+                            playbackId={item.video}
+                            autoPlay
+                            muted
+                            loop
+                            style={{ width: '100%', height: '100%' }}
+                            primaryColor="#00F3FF"
+                            streamType="on-demand"
+                        />
+                    </Suspense>
                     {/* Preview indicator */}
                     <div style={{
                         position: 'absolute',
