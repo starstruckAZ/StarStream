@@ -187,3 +187,14 @@ button {
     animation: none;
   }
 }
+
+/* Disable heavy effects on mobile for performance */
+@media (max-width: 768px) {
+  .ambient-bg {
+    display: none;
+  }
+
+  .poster-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+}
