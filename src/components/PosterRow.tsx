@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import MuxPlayer from '@mux/mux-player-react';
 import SkeletonPoster from './SkeletonPoster';
 
 interface ContentItem {
@@ -188,6 +189,11 @@ const Poster = React.memo(({
 }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [showPreview, setShowPreview] = useState(false);
+    const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Check if device is mobile/touch (disable preview on touch devices)
+    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
     useEffect(() => {
         // Randomly simulate progress for some items to show off the UI
@@ -196,11 +202,40 @@ const Poster = React.memo(({
         else if (item.id === 'wanp' || item.id === 'dt') setProgress(Math.random() * 80);
     }, [item.id]);
 
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+        // Start timer for video preview (800ms delay)
+        if (item.video && !item.isComingSoon && !isTouchDevice) {
+            hoverTimerRef.current = setTimeout(() => {
+                setShowPreview(true);
+            }, 800);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+        setShowPreview(false);
+        // Clear any pending timer
+        if (hoverTimerRef.current) {
+            clearTimeout(hoverTimerRef.current);
+            hoverTimerRef.current = null;
+        }
+    };
+
+    // Cleanup timer on unmount
+    useEffect(() => {
+        return () => {
+            if (hoverTimerRef.current) {
+                clearTimeout(hoverTimerRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div
             onClick={() => !item.isComingSoon && onSelect(item)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             className="poster-card"
             style={{
                 flex: '0 0 auto',
@@ -217,6 +252,7 @@ const Poster = React.memo(({
                 boxShadow: isHovered ? '0 10px 30px rgba(0,0,0,0.8)' : '0 4px 10px rgba(0,0,0,0.3)',
                 border: isHovered ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.05)'
             }}>
+            {/* Poster Image */}
             <img
                 src={item.poster}
                 alt={item.title}
@@ -227,9 +263,49 @@ const Poster = React.memo(({
                     objectFit: 'cover',
                     transition: 'all 0.4s ease',
                     filter: isHovered ? 'brightness(1.1) contrast(1.1)' : 'brightness(0.9)',
-                    transform: isHovered ? 'scale(1.1)' : 'scale(1)'
+                    transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                    opacity: showPreview ? 0 : 1
                 }}
             />
+
+            {/* Video Preview on Hover */}
+            {showPreview && item.video && (
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    animation: 'fadeIn 0.3s ease-out'
+                }}>
+                    <MuxPlayer
+                        playbackId={item.video}
+                        autoPlay
+                        muted
+                        loop
+                        style={{ width: '100%', height: '100%' }}
+                        primaryColor="#00F3FF"
+                        streamType="on-demand"
+                    />
+                    {/* Preview indicator */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '10px',
+                        left: '10px',
+                        backgroundColor: 'rgba(0,0,0,0.7)',
+                        padding: '4px 8px',
+                        borderRadius: '2px',
+                        fontSize: '0.65rem',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px'
+                    }}>
+                        <span style={{ color: 'var(--primary-color)' }}>●</span> PREVIEW
+                    </div>
+                </div>
+            )}
 
             {progress > 0 && (
                 <div style={{

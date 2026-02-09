@@ -11,6 +11,7 @@ import Cancel from './pages/Cancel';
 import Login from './pages/Login';
 import SeriesPage from './pages/SeriesPage';
 import PremiumPopup from './components/PremiumPopup';
+import ContentDetailModal from './components/ContentDetailModal';
 
 interface ContentItem {
   id: string;
@@ -19,16 +20,19 @@ interface ContentItem {
   video?: string;
   isComingSoon?: boolean;
   type?: 'series' | 'movie';
-  category?: string; // Added category for filtering
+  category?: string;
+  description?: string;
 }
 
 const MovieCatalog = ({
   onPlay,
+  onMoreInfo: _onMoreInfo,
   searchQuery,
   myList,
   onToggleMyList
 }: {
   onPlay: (item: ContentItem) => void;
+  onMoreInfo?: (item: ContentItem) => void;
   searchQuery: string;
   myList: string[];
   onToggleMyList: (id: string) => void;
@@ -55,7 +59,7 @@ const MovieCatalog = ({
     id: 'wanp',
     title: 'Wishes Are Never Perfect',
     poster: '/assets/images/official/Wishes Are Never Perfect Banner.png',
-    video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY' // Mux Playback ID (Wishes Are Never Perfect - The Movie)
+    video: 'V93olU015zEi028o9vtjAc5dhQJ1DinyBpydmCrUFvEVY'
   };
 
   const trending = [
@@ -140,8 +144,6 @@ const MovieCatalog = ({
 
   const myListedItems = allItems.filter(item => myList.includes(item.id));
 
-
-
   if (isLoading) {
     return (
       <div style={{
@@ -186,6 +188,13 @@ const MovieCatalog = ({
 
   return (
     <div className="fade-in" style={{ paddingBottom: '100px', backgroundColor: 'var(--bg-color)', minHeight: '100vh' }}>
+      {/* Ambient Background */}
+      <div className="ambient-bg">
+        <div className="ambient-orb ambient-orb-1"></div>
+        <div className="ambient-orb ambient-orb-2"></div>
+        <div className="ambient-orb ambient-orb-3"></div>
+      </div>
+
       <div id="top"></div>
       <Hero onPlay={() => onPlay(mainFilm)} />
 
@@ -453,6 +462,7 @@ const MovieCatalog = ({
 
 const App = () => {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
+  const [detailItem, setDetailItem] = useState<ContentItem | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [myList, setMyList] = useState<string[]>([]);
   const { hasUnlockedCollection, user } = useAuth();
@@ -487,6 +497,10 @@ const App = () => {
     } else {
       setSelectedItem(item);
     }
+  };
+
+  const handleMoreInfo = (item: ContentItem) => {
+    setDetailItem(item);
   };
 
   const handleUnlockCollection = async (price: number) => {
@@ -528,6 +542,7 @@ const App = () => {
         <Route path="/" element={
           <MovieCatalog
             onPlay={handlePlay}
+            onMoreInfo={handleMoreInfo}
             searchQuery={searchQuery}
             myList={myList}
             onToggleMyList={handleToggleMyList}
@@ -544,6 +559,18 @@ const App = () => {
         isLocked={selectedItem ? isItemLocked(selectedItem.id) : false}
         onUnlock={handleUnlockCollection}
         onClose={() => setSelectedItem(null)}
+      />
+
+      <ContentDetailModal
+        item={detailItem}
+        isOpen={detailItem !== null}
+        onClose={() => setDetailItem(null)}
+        onPlay={(item) => {
+          setDetailItem(null);
+          handlePlay(item);
+        }}
+        isInMyList={detailItem ? myList.includes(detailItem.id) : false}
+        onToggleMyList={handleToggleMyList}
       />
     </>
   );
